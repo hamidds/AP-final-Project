@@ -1,0 +1,77 @@
+package Model;
+
+import Model.Messages.Conversation;
+import Model.Messages.Mail;
+
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
+
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private String firstName;
+    private String lastName;
+    private String username;
+    private String password;
+    private String phoneNumber;
+    private Gender gender;
+
+
+    private ObjectInputStream inputStream;
+    private ObjectOutputStream outputStream;
+
+    private List<Conversation> conversations;
+    private List<Mail> mails;
+
+
+    public User(String firstName, String lastName, String username, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+    }
+
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return username.equals(user.username);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username);
+    }
+}
+
+enum Gender {
+    Male, Female
+}

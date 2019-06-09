@@ -1,0 +1,43 @@
+.button1 {
+    -fx-background-color: #21AAB6;
+    -fx-background-radius: 0px;
+}
+
+.button1:hover {
+    -fx-background-color: #1aa4b6;
+    -fx-text-fill: white;
+    -fx-border-color: white;
+    -fx-border-width: 0px 0px 0px 3px;
+    -fx-border-radius: 0px;
+}
+.button1:pressed{
+    -fx-background-color: #0d9eb6;
+}
+
+.icons {
+    /*-fx-fill : #a3a3a3;*/
+}
+
+.button:hover .icons {
+    -fx-fill: white;
+
+}
+
+
+.scroll-pane {
+    -fx-background-color: #21AAB6;
+    /*-fx-background-color: #1b42e6;*/
+
+}
+
+.text-field {
+    -fx-background-color: #E9E9E9;
+}
+
+.button2 {
+    -fx-background-color: #287AE6;
+}
+
+.button2:hover {
+    -fx-background-color: #1a63e6;
+}

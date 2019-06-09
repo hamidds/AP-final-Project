@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="575.0" prefWidth="930.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.RegisterPanelController">
+   <children>
+      <AnchorPane fx:id="nextAnchor" layoutX="431.0" layoutY="106.0" prefHeight="385.0" prefWidth="388.0">
+         <children>
+            <TextField fx:id="firstname" layoutX="2.0" layoutY="46.0" prefHeight="34.0" prefWidth="185.0" promptText="First name" styleClass="text-field" stylesheets="@Css/Style.css" />
+            <TextField fx:id="lastname" layoutX="202.0" layoutY="46.0" prefHeight="34.0" prefWidth="185.0" promptText="Last name" stylesheets="@Css/Style.css" />
+            <TextField fx:id="username" layoutY="106.0" prefHeight="34.0" prefWidth="386.0" promptText="Username" stylesheets="@Css/Style.css" />
+            <Label fx:id="passwordWarning" layoutX="2.0" layoutY="213.0" prefHeight="18.0" prefWidth="361.0" text="Use 8 or more characters with a mix of letters, numbers &amp; symbols" textFill="#616161" />
+            <Label fx:id="usernameWarning" layoutX="3.0" layoutY="144.0" prefHeight="18.0" prefWidth="361.0" text="You can use letters &amp; numbers " textFill="#616161" />
+            <Label fx:id="createYourAccount" text="Create your Account">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Button fx:id="next" layoutX="289.0" layoutY="293.0" mnemonicParsing="false" onAction="#next" prefHeight="43.0" prefWidth="94.0" styleClass="button2" stylesheets="@Css/Style.css" text="Next Steps" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <DatePicker fx:id="birthDate" layoutX="1.0" layoutY="243.0" prefHeight="34.0" prefWidth="386.0" promptText="Birth Date" stylesheets="@Css/Style.css" />
+            <Label fx:id="gmail" layoutX="298.0" layoutY="113.0" text="\@gmail.com" textFill="#616161">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="password" layoutX="2.0" layoutY="172.0" prefHeight="34.0" prefWidth="158.0" promptText="Password" stylesheets="@Css/Style.css" />
+            <PasswordField fx:id="confirm" layoutX="174.0" layoutY="172.0" prefHeight="34.0" prefWidth="158.0" promptText="Confirm" stylesheets="@Css/Style.css" />
+            <FontIcon fx:id="eyeSlash" iconColor="#616161" iconLiteral="fa-eye-slash" iconSize="25" layoutX="350.0" layoutY="198.0" onMouseClicked="#visiblePassword" visible="false" />
+            <FontIcon fx:id="eye" iconColor="#616161" iconLiteral="fa-eye" iconSize="25" layoutX="350.0" layoutY="198.0" onMouseClicked="#invisiblePassword" text="" />
+            <TextField fx:id="visiblePassword" layoutX="2.0" layoutY="172.0" prefHeight="34.0" prefWidth="158.0" promptText="Password" stylesheets="@Css/Style.css" visible="false" />
+            <TextField fx:id="visibleConfirm" layoutX="174.0" layoutY="172.0" prefHeight="34.0" prefWidth="158.0" promptText="Confirm" stylesheets="@Css/Style.css" visible="false" />
+            <FontIcon fx:id="W1" iconColor="#d93025" iconLiteral="fa-exclamation-circle" iconSize="15" layoutX="168.0" layoutY="68.0" visible="false" />
+            <FontIcon fx:id="W2" iconColor="#d93025" iconLiteral="fa-exclamation-circle" iconSize="15" layoutX="368.0" layoutY="68.0" visible="false" />
+            <FontIcon fx:id="W4" iconColor="#d93025" iconLiteral="fa-exclamation-circle" iconSize="15" layoutX="141.0" layoutY="195.0" visible="false" />
+            <FontIcon fx:id="W5" iconColor="#d93025" iconLiteral="fa-exclamation-circle" iconSize="15" layoutX="312.0" layoutY="194.0" visible="false" />
+            <FontIcon fx:id="W6" iconColor="#d93025" iconLiteral="fa-exclamation-circle" iconSize="15" layoutX="344.0" layoutY="265.0" visible="false" />
+            <FontIcon fx:id="W3" iconColor="#d93025" iconLiteral="fa-exclamation-circle" iconSize="15" layoutX="280.0" layoutY="128.0" visible="false" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="nextSteps" layoutX="953.0" layoutY="73.0" prefHeight="385.0" prefWidth="388.0">
+         <children>
+            <TextField fx:id="phoneNumber" layoutX="18.0" layoutY="272.0" prefHeight="34.0" prefWidth="310.0" promptText="Phone Number" stylesheets="@Css/Style.css" />
+            <RadioButton fx:id="male" layoutX="18.0" layoutY="317.0" mnemonicParsing="false" onMouseClicked="#malePic" text="Male">
+               <toggleGroup>
+                  <ToggleGroup fx:id="gender" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="female" layoutX="89.0" layoutY="317.0" mnemonicParsing="false" onMouseClicked="#femalePic" text="Female" toggleGroup="$gender" />
+            <TextField fx:id="address" layoutX="21.0" layoutY="220.0" mouseTransparent="true" prefHeight="34.0" prefWidth="168.0" stylesheets="@Css/Style.css" />
+            <Button fx:id="choose" layoutX="122.0" layoutY="224.0" mnemonicParsing="false" onAction="#choose" text="choose" />
+            <ImageView fx:id="image" fitHeight="140.0" fitWidth="181.0" layoutX="194.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="next1" layoutX="265.0" layoutY="328.0" mnemonicParsing="false" onAction="#next" prefHeight="43.0" prefWidth="87.0" styleClass="button2" stylesheets="@Css/Style.css" text="Next" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="575.0" prefWidth="330.0" styleClass="scroll-pane" stylesheets="@Css/Style.css">
+         <children>
+            <ImageView fitHeight="188.0" fitWidth="292.0" layoutX="22.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Resources/gmail-logo.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="enterButton" layoutY="241.0" mnemonicParsing="false" onAction="#signInPanel" prefHeight="54.0" prefWidth="330.0" styleClass="button1" text=" Sign in ">
+               <font>
+                  <Font size="17.0" />
+               </font>
+               <graphic>
+                  <FontIcon iconLiteral="fa-gg" styleClass="icons" />
+               </graphic>
+            </Button>
+            <Button fx:id="create" layoutY="295.0" mnemonicParsing="false" onAction="#registerPanel" prefHeight="54.0" prefWidth="330.0" styleClass="button1" text="Create an account">
+               <font>
+                  <Font size="17.0" />
+               </font>
+               <graphic>
+                  <FontIcon iconLiteral="fa-edit" styleClass="icons" />
+               </graphic>
+            </Button>
+            <Button fx:id="exit" layoutY="349.0" mnemonicParsing="false" onAction="#Exit" prefHeight="54.0" prefWidth="330.0" styleClass="button1" text="Exit">
+               <font>
+                  <Font size="17.0" />
+               </font>
+               <graphic>
+                  <FontIcon iconLiteral="fa-window-close" styleClass="icons" />
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="signInPane" layoutX="431.0" layoutY="602.0" prefHeight="385.0" prefWidth="388.0">
+         <children>
+            <TextField fx:id="username1" layoutX="29.0" layoutY="62.0" prefHeight="43.0" prefWidth="330.0" promptText="Email or phone" stylesheets="@Css/Style.css" />
+            <PasswordField layoutX="28.0" layoutY="130.0" prefHeight="43.0" prefWidth="330.0" promptText="Password" stylesheets="@Css/Style.css" />
+            <Button fx:id="signIn" layoutX="253.0" layoutY="219.0" mnemonicParsing="false" onAction="#enter" prefHeight="43.0" prefWidth="105.0" styleClass="button2" stylesheets="@Css/Style.css" text="Sign in" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Label fx:id="createYourAccount1" layoutX="163.0" layoutY="23.0" text="Sign In">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
