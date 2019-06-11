@@ -10,13 +10,19 @@
     -fx-border-width: 0px 0px 0px 3px;
     -fx-border-radius: 0px;
 }
-.button1:pressed{
+
+.button1:pressed {
     -fx-background-color: #0d9eb6;
 }
 
 .icons {
     /*-fx-fill : #a3a3a3;*/
 }
+
+.icons1:hover {
+    -fx-fill: red;
+}
+
 
 .button:hover .icons {
     -fx-fill: white;
@@ -40,4 +46,26 @@
 
 .button2:hover {
     -fx-background-color: #1a63e6;
+}
+
+.list-cell:hover {
+    -fx-background-color: #f4f4f4;
+}
+
+.reply:hover {
+    -fx-fill: #1d55dd;
+}
+
+.forward:hover {
+    -fx-fill: #1cdd30;
+}
+
+.titles {
+    -fx-background-color: transparent;
+    -fx-border-radius: 0px;
+}
+
+.titles:hover {
+    -fx-background-color: #d0d0d0;
+    -fx-border-radius: 0px;
 }

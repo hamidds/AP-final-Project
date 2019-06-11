@@ -16,10 +16,7 @@ import javafx.stage.FileChooser;
 import javafx.util.Duration;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
@@ -31,8 +28,8 @@ import java.util.regex.Pattern;
 
 public class RegisterPanelController implements Initializable {
     private Socket client;
-    private ObjectOutputStream out;
-    private ObjectInputStream in;
+    private DataOutputStream out;
+    private DataInputStream in;
 
     @FXML
     private TextField firstname, lastname, username, visiblePassword, visibleConfirm;
@@ -57,8 +54,8 @@ public class RegisterPanelController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             client = new Socket("localhost", 8888);
-            out = new ObjectOutputStream(client.getOutputStream());
-            in = new ObjectInputStream(client.getInputStream());
+            out = new DataOutputStream(client.getOutputStream());
+            in = new DataInputStream(client.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,7 +76,8 @@ public class RegisterPanelController implements Initializable {
         birthDateChecker();
         if (passwordChecker()) {
             if (password.getText().equals(confirm.getText())) {
-                out.writeObject(new Message(MessageType.AvailableUsername, username.getText(), null, null));
+//                out.writeUTF("hamid umad");
+//                out.write(toByteArray(new Message(MessageType.AvailableUsername, username.getText(), null, null)));
                 System.out.println("hi2");
 //                if (in.readBoolean()) {
 //                    TranslateTransition transition1 = new TranslateTransition(Duration.millis(1000), nextAnchor);
@@ -211,8 +209,8 @@ public class RegisterPanelController implements Initializable {
     }
 
     public void malePic(MouseEvent mouseEvent) {
-            Image boyDefaultImage = new Image("/View/Resources/boy.png");
-            image.setImage(boyDefaultImage);
+        Image boyDefaultImage = new Image("/View/Resources/boy.png");
+        image.setImage(boyDefaultImage);
     }
 
     public void femalePic(MouseEvent mouseEvent) {
@@ -223,6 +221,46 @@ public class RegisterPanelController implements Initializable {
     public void register(ActionEvent actionEvent) {
         // we should initialize user here
 
+    }
+
+    public static byte[] toByteArray(Object obj) throws IOException {
+        byte[] bytes = null;
+        ByteArrayOutputStream bos = null;
+        ObjectOutputStream oos = null;
+        try {
+            bos = new ByteArrayOutputStream();
+            oos = new ObjectOutputStream(bos);
+            oos.writeObject(obj);
+            oos.flush();
+            bytes = bos.toByteArray();
+        } finally {
+            if (oos != null) {
+                oos.close();
+            }
+            if (bos != null) {
+                bos.close();
+            }
+        }
+        return bytes;
+    }
+
+    public static Object toObject(byte[] bytes) throws IOException, ClassNotFoundException {
+        Object obj = null;
+        ByteArrayInputStream bis = null;
+        ObjectInputStream ois = null;
+        try {
+            bis = new ByteArrayInputStream(bytes);
+            ois = new ObjectInputStream(bis);
+            obj = ois.readObject();
+        } finally {
+            if (bis != null) {
+                bis.close();
+            }
+            if (ois != null) {
+                ois.close();
+            }
+        }
+        return obj;
     }
 }
 

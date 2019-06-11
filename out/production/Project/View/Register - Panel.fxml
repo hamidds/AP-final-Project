@@ -62,11 +62,16 @@
             <TextField fx:id="address" layoutX="21.0" layoutY="220.0" mouseTransparent="true" prefHeight="34.0" prefWidth="168.0" stylesheets="@Css/Style.css" />
             <Button fx:id="choose" layoutX="122.0" layoutY="224.0" mnemonicParsing="false" onAction="#choose" text="choose" />
             <ImageView fx:id="image" fitHeight="140.0" fitWidth="181.0" layoutX="194.0" layoutY="114.0" pickOnBounds="true" preserveRatio="true" />
-            <Button fx:id="next1" layoutX="265.0" layoutY="328.0" mnemonicParsing="false" onAction="#next" prefHeight="43.0" prefWidth="87.0" styleClass="button2" stylesheets="@Css/Style.css" text="Next" textFill="WHITE">
+            <Button fx:id="register" layoutX="272.0" layoutY="317.0" mnemonicParsing="false" onAction="#register" prefHeight="43.0" prefWidth="87.0" styleClass="button2" stylesheets="@Css/Style.css" text="Next" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
+            <Label fx:id="welcome" layoutX="39.0" layoutY="33.0" prefHeight="30.0" prefWidth="54.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="575.0" prefWidth="330.0" styleClass="scroll-pane" stylesheets="@Css/Style.css">

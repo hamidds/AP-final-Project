@@ -3,6 +3,7 @@ package Model;
 import Model.Messages.Conversation;
 import Model.Messages.Mail;
 
+import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -23,8 +24,18 @@ public class User implements Serializable {
     private ObjectOutputStream outputStream;
 
     private List<Conversation> conversations;
-    private List<Mail> mails;
+    private List<Conversation> inbox;
+    private List<Conversation> sent;
 
+    private File profileImage ;
+
+    public File getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(File profileImage) {
+        this.profileImage = profileImage;
+    }
 
     public User(String firstName, String lastName, String username, String password) {
         this.firstName = firstName;
@@ -69,6 +80,11 @@ public class User implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(username);
+    }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
     }
 }
 

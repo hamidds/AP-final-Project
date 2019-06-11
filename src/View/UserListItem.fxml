@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="550.0" styleClass="list-cell" stylesheets="@Css/Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="name" layoutX="14.0" layoutY="9.0" prefHeight="22.0" prefWidth="106.0" text="Label" textFill="#777373">
+         <font>
+            <Font name="Agency FB Bold" size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="message" layoutX="139.0" layoutY="16.0" text="Label">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Pane layoutX="397.0" layoutY="12.0" prefHeight="26.0" prefWidth="138.0">
+         <children>
+            <FontIcon fx:id="trash" iconColor="#777373" iconLiteral="fa-trash" iconSize="23" layoutX="109.0" layoutY="21.0" onMouseClicked="#remove" styleClass="icons1" />
+            <AnchorPane layoutX="56.0" layoutY="20.714284896850586" prefHeight="19.0" prefWidth="14.0">
+               <children>
+                  <FontIcon fx:id="bookMark" iconColor="#777373" iconLiteral="fa-bookmark" iconSize="20" onMouseClicked="#bookmark" visible="false" />
+                  <FontIcon fx:id="unBookMark" iconColor="#777373" iconLiteral="fa-bookmark-o" iconSize="20" onMouseClicked="#unBookMark" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="82.0" layoutY="19.714284896850586" prefHeight="19.0" prefWidth="20.0">
+               <children>
+                  <FontIcon fx:id="flag" iconColor="#777373" iconLiteral="fa-envelope" iconSize="20" onMouseClicked="#read" visible="false" />
+                  <FontIcon fx:id="unflag" iconColor="#777373" iconLiteral="fa-envelope-o" iconSize="20" onMouseClicked="#unread" />
+               </children>
+            </AnchorPane>
+            <FontIcon iconColor="#777373" iconLiteral="fa-mail-forward" iconSize="18" layoutX="31.0" layoutY="20.0" styleClass="forward" />
+            <FontIcon iconColor="#777373" iconLiteral="fa-mail-reply" iconSize="18" layoutX="5.0" layoutY="20.0" styleClass="reply" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

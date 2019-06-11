@@ -13,6 +13,11 @@ public class Message implements Serializable
      */
     private final MessageType messageType;
 
+    private boolean bookMarked;
+    private boolean read;
+    private boolean inTrash;
+
+
     public Message(MessageType messageType, String sender, String receiver, String messageText) {
         this.messageType = messageType;
         this.receiver = receiver;
