@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 public class PageLoader {
-    private static final int WIDTH = 977;
-    private static final int HEIGHT = 577;
+    private static final int WIDTH = 930;
+    private static final int HEIGHT = 600;
     private static Stage stage;
 
     public static void initStage(Stage primaryStage) {

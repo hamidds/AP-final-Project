@@ -6,7 +6,9 @@ import Model.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
@@ -16,9 +18,11 @@ public class UserListItemController {
     @FXML
     private AnchorPane root;
     @FXML
+    private Pane icons;
+    @FXML
     private ImageView profile;
     @FXML
-    private Label name, message;
+    private Label name, message,dateTime;
     @FXML
     private FontIcon bookMark, unBookMark, flag, unflag;
 
@@ -39,7 +43,8 @@ public class UserListItemController {
             unflag.setVisible(false);
         }
         name.setText(conversation.getSender().toString());
-        message.setText(conversation.getLastMail().getMessageText());
+        message.setText(conversation.getLastMail().getText());
+        dateTime.setText(conversation.getLastMail().getTimeString());
         return root;
     }
 
@@ -73,4 +78,13 @@ public class UserListItemController {
         conversation.setBookMarked(true);
     }
 
+    public void mouseOn(MouseEvent mouseEvent) {
+        icons.setVisible(true);
+        dateTime.setVisible(false);
+    }
+
+    public void mouseOff(MouseEvent mouseEvent) {
+        icons.setVisible(false);
+        dateTime.setVisible(true);
+    }
 }

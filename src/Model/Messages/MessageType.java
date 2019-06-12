@@ -2,6 +2,7 @@ package Model.Messages;
 
 public enum MessageType
 {
+    Connect,
     /**
      * connect to a user
      */

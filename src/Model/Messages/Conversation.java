@@ -11,6 +11,10 @@ public class Conversation {
     private User sender;
     private User receiver;
 
+    private boolean bookMarked;
+    private boolean read;
+    private boolean inTrash;
+
 
     public void setBookMarked(boolean bookMarked) {
         this.bookMarked = bookMarked;
@@ -27,10 +31,6 @@ public class Conversation {
     public boolean isRead() {
         return read;
     }
-
-    private boolean bookMarked;
-    private boolean read;
-    private boolean inTrash;
 
     public boolean isInTrash() {
         return inTrash;

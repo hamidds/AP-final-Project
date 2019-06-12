@@ -3,44 +3,63 @@ package Controller;
 import Model.Messages.Conversation;
 import Model.Messages.Mail;
 import Model.Messages.MessageType;
+import Model.PageLoader;
 import Model.User;
-import javafx.application.Platform;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainPanelController implements Initializable {
+    private List<Conversation> conversations;
+
+    @FXML
+    private AnchorPane opend;
     @FXML
     private ListView<Conversation> inbox1;
+    @FXML
+    private Label text, name;
+    @FXML
+    private HBox h;
+    @FXML
+    private TextField searchText;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         User hamid = new User("hamid", "saffari", "h", "s");
-        User Ali = new User("ali", "saffari", "a", "s");
+        User Ali = new User("amin", "shafie", "a", "s");
         User reza = new User("reza", "saffari", "r", "s");
-        Mail mail = new Mail(MessageType.Text, "hamid", "ali", "hii");
-        Mail mail1 = new Mail(MessageType.Text, "hamid", "reza", "hii");
-        Mail mail2 = new Mail(MessageType.Text, "ali", "reza", "hii");
-        Mail mail3 = new Mail(MessageType.Text, "hamid", "ali", "hii");
+        Mail mail = new Mail(LocalDateTime.now(), "hamid", "reza", "hii","hii");
+        Mail mail1 = new Mail(LocalDateTime.now(), "hamid", "reza", "hii","hiii");
+        Mail mail2 = new Mail(LocalDateTime.now(), "ali", "reza", "hii","hii");
+        Mail mail3 = new Mail(LocalDateTime.now(), "hamid", "ali", "hii","hii");
         Conversation c1 = new Conversation(mail, hamid, Ali);
         Conversation c2 = new Conversation(mail1, hamid, reza);
         Conversation c3 = new Conversation(mail2, Ali, reza);
-        List<Conversation> conversations = new ArrayList<>(Arrays.asList(c1, c2, c3));
+        conversations = new ArrayList<>(Arrays.asList(c1, c2, c3));
 
-        inbox1.setItems(FXCollections.observableArrayList(conversations));
         inbox1.setCellFactory(inbox1 -> new UserListItem());
+        inbox1.setItems(FXCollections.observableArrayList(conversations));
     }
 
-    public void compose(ActionEvent actionEvent) {
-
+    public void compose(ActionEvent actionEvent) throws IOException {
+        new PageLoader().Load("../View/Compose - Panel.fxml");
     }
 
     public void inbox(ActionEvent actionEvent) {
@@ -58,4 +77,31 @@ public class MainPanelController implements Initializable {
     public void logout(ActionEvent actionEvent) {
 
     }
+
+    public void refresh(ActionEvent actionEvent) {
+
+    }
+
+    public void search(ActionEvent actionEvent) {
+        if (searchText.getText().isEmpty())
+            return;
+        List<Conversation> searched = new ArrayList<>();
+        for (Conversation conversation : conversations) {
+            if (conversation.getReceiver().equals(new User(null, null, searchText.getText(), null)) || conversation.getSender().equals(new User(null, null, searchText.getText(), null)))
+                searched.add(conversation);
+        }
+        inbox1.setItems(FXCollections.observableArrayList(searched));
+    }
+
+    public void open(ActionEvent actionEvent) {
+        if (inbox1.getSelectionModel().isEmpty())
+            return;
+        Conversation conversation = inbox1.getSelectionModel().getSelectedItem();
+        inbox1.setVisible(false);
+        name.setText(conversation.getSender().toString() + "<" + conversation.getSender().getGmailAddress() + ">");
+        TranslateTransition transition = new TranslateTransition(Duration.millis(1000), opend);
+        transition.setToX(-600);
+        transition.playFromStart();
+    }
+
 }

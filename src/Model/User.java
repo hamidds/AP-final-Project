@@ -10,6 +10,10 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+enum Gender {
+    Male, Female
+}
+
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     private String firstName;
@@ -18,7 +22,7 @@ public class User implements Serializable {
     private String password;
     private String phoneNumber;
     private Gender gender;
-
+    private String gmailAddress;
 
     private ObjectInputStream inputStream;
     private ObjectOutputStream outputStream;
@@ -27,7 +31,7 @@ public class User implements Serializable {
     private List<Conversation> inbox;
     private List<Conversation> sent;
 
-    private File profileImage ;
+    private File profileImage;
 
     public File getProfileImage() {
         return profileImage;
@@ -37,11 +41,16 @@ public class User implements Serializable {
         this.profileImage = profileImage;
     }
 
+    public String getGmailAddress() {
+        return gmailAddress;
+    }
+
     public User(String firstName, String lastName, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
+        gmailAddress = username + "@gmail.com";
     }
 
 
@@ -86,8 +95,6 @@ public class User implements Serializable {
     public String toString() {
         return firstName + " " + lastName;
     }
+
 }
 
-enum Gender {
-    Male, Female
-}

@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Connection.Connection;
 import Model.Messages.Message;
 import Model.Messages.MessageType;
 import javafx.animation.TranslateTransition;
@@ -28,8 +29,8 @@ import java.util.regex.Pattern;
 
 public class RegisterPanelController implements Initializable {
     private Socket client;
-    private DataOutputStream out;
-    private DataInputStream in;
+    private ObjectOutputStream out;
+    private ObjectInputStream in;
 
     @FXML
     private TextField firstname, lastname, username, visiblePassword, visibleConfirm;
@@ -52,13 +53,7 @@ public class RegisterPanelController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            client = new Socket("localhost", 8888);
-            out = new DataOutputStream(client.getOutputStream());
-            in = new DataInputStream(client.getInputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        Connection controller = new Connection("controller");
 
     }
 
@@ -74,10 +69,9 @@ public class RegisterPanelController implements Initializable {
     public void next(ActionEvent actionEvent) throws IOException {
         emptyFieldChecker();
         birthDateChecker();
+
         if (passwordChecker()) {
             if (password.getText().equals(confirm.getText())) {
-//                out.writeUTF("hamid umad");
-//                out.write(toByteArray(new Message(MessageType.AvailableUsername, username.getText(), null, null)));
                 System.out.println("hi2");
 //                if (in.readBoolean()) {
 //                    TranslateTransition transition1 = new TranslateTransition(Duration.millis(1000), nextAnchor);
