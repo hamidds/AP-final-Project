@@ -3,21 +3,32 @@ package Controller;
 import Model.PageLoader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
+public class SettingsPanel {
 
-public class ComposePanel implements Initializable {
     @FXML
-    private TextField recepient , subject , mailText ;
+    private FontIcon editIcon;
     @FXML
-    private Button send;
+    private TextField fne,lne,phn;
+    @FXML
+    private DatePicker bde ;
+    @FXML
+    private Label fnl,lnl,phnl,bdl,profile ;
+
+    public void editOff(MouseEvent mouseEvent) {
+        editIcon.setVisible(false);
+    }
+
+    public void editOn(MouseEvent mouseEvent) {
+        editIcon.setVisible(true);
+    }
 
     public void inbox(ActionEvent actionEvent) throws IOException {
         new PageLoader().Load("../View/Main - Panel.fxml");
@@ -37,15 +48,5 @@ public class ComposePanel implements Initializable {
     public void logout(ActionEvent actionEvent) {
 
     }
-
-    public void send(ActionEvent actionEvent) {
-
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("hi");
-    }
-
 
 }

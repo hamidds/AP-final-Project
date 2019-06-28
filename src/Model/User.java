@@ -10,10 +10,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-enum Gender {
-    Male, Female
-}
-
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     private String firstName;
@@ -53,6 +49,11 @@ public class User implements Serializable {
         gmailAddress = username + "@gmail.com";
     }
 
+    public void complete(File avatar, String phoneNumber, Gender gender) {
+        this.profileImage = avatar;
+        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+    }
 
     public String getFirstName() {
         return firstName;

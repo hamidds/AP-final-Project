@@ -8,9 +8,9 @@
 
 <AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#mouseOn" onMouseExited="#mouseOff" prefHeight="50.0" prefWidth="550.0" styleClass="list-cell" stylesheets="@Css/Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label fx:id="name" layoutX="14.0" layoutY="9.0" prefHeight="22.0" prefWidth="106.0" text="Label" textFill="#777373">
+      <Label fx:id="name" layoutX="14.0" layoutY="14.0" prefHeight="22.0" prefWidth="106.0" text="Label" textFill="#777373">
          <font>
-            <Font name="Agency FB Bold" size="21.0" />
+            <Font name="Segoe UI Semibold" size="16.0" />
          </font>
       </Label>
       <Label fx:id="message" layoutX="139.0" layoutY="16.0" text="Label">
@@ -37,6 +37,6 @@
             <FontIcon iconColor="#777373" iconLiteral="fa-mail-reply" iconSize="18" layoutX="5.0" layoutY="20.0" styleClass="reply" />
          </children>
       </Pane>
-      <Label fx:id="dateTime" layoutX="435.0" layoutY="16.0" prefHeight="18.0" prefWidth="99.0" text="Label" />
+      <Label fx:id="dateTime" alignment="CENTER" layoutX="405.0" layoutY="16.0" prefHeight="18.0" prefWidth="123.0" text="Label" />
    </children>
 </AnchorPane>

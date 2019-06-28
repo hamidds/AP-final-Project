@@ -1,8 +1,10 @@
 package Controller;
 
 import Model.Connection.Connection;
+import Model.Gender;
 import Model.Messages.Message;
 import Model.Messages.MessageType;
+import Model.User;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,9 +33,9 @@ public class RegisterPanelController implements Initializable {
     private Socket client;
     private ObjectOutputStream out;
     private ObjectInputStream in;
-
+    private File selectedFile;
     @FXML
-    private TextField firstname, lastname, username, visiblePassword, visibleConfirm;
+    private TextField firstname, lastname, username, visiblePassword, visibleConfirm, phoneNumber;
     @FXML
     private Button next;
     @FXML
@@ -50,10 +52,11 @@ public class RegisterPanelController implements Initializable {
     private FontIcon W1, W2, W3, W4, W5, W6;
     @FXML
     private ImageView image;
+    @FXML
+    private RadioButton male, female;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        Connection controller = new Connection("controller");
 
     }
 
@@ -67,22 +70,22 @@ public class RegisterPanelController implements Initializable {
     }
 
     public void next(ActionEvent actionEvent) throws IOException {
+        connectToServer();
         emptyFieldChecker();
         birthDateChecker();
-
         if (passwordChecker()) {
             if (password.getText().equals(confirm.getText())) {
-                System.out.println("hi2");
-//                if (in.readBoolean()) {
-//                    TranslateTransition transition1 = new TranslateTransition(Duration.millis(1000), nextAnchor);
-//                    TranslateTransition transition2 = new TranslateTransition(Duration.millis(1000), nextSteps);
-//                    transition2.setToX(-500);
-//                    transition2.playFromStart();
-//                    transition1.setToX(-550);
-//                    transition1.playFromStart();
-//
-//                }
-
+                System.out.println("if");
+                out.writeObject(new Message(MessageType.AvailableUsername, username.getText(), "", ""));
+                if (in.readBoolean()) {
+                    TranslateTransition transition1 = new TranslateTransition(Duration.millis(1000), nextAnchor);
+                    TranslateTransition transition2 = new TranslateTransition(Duration.millis(1000), nextSteps);
+                    transition2.setToX(-500);
+                    transition2.playFromStart();
+                    transition1.setToX(-550);
+                    transition1.playFromStart();
+                    dissconnectFromServer();
+                }
             } else {
                 passwordWarning.setText("Those passwords didn't match. Try again.");
                 passwordWarnings();
@@ -92,7 +95,6 @@ public class RegisterPanelController implements Initializable {
         }
 
         //first we initialize the user according to his/her information
-
 
         // REGISTER
         // SERVER SHOULD DO THIS PART :
@@ -105,7 +107,17 @@ public class RegisterPanelController implements Initializable {
 
         // if (successfulRegister)
 
+    }
 
+    private void connectToServer() throws IOException {
+        client = new Socket("localhost", 8888);
+        out = new ObjectOutputStream(client.getOutputStream());
+        in = new ObjectInputStream(client.getInputStream());
+        System.out.println("connected");
+    }
+
+    private void dissconnectFromServer() throws IOException {
+        out.writeObject(new Message(MessageType.Disconnect, "", "", ""));
     }
 
     private void birthDateChecker() {
@@ -193,7 +205,7 @@ public class RegisterPanelController implements Initializable {
 
     public void choose(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
-        File selectedFile = fileChooser.showOpenDialog(null);
+        selectedFile = fileChooser.showOpenDialog(null);
         if (selectedFile != null) {
             Image image1 = new Image(selectedFile.toURI().toString());
             Circle clip = new Circle(60, 60, 60);
@@ -212,50 +224,16 @@ public class RegisterPanelController implements Initializable {
         image.setImage(girDefaultImage);
     }
 
-    public void register(ActionEvent actionEvent) {
+    public void register(ActionEvent actionEvent) throws IOException {
         // we should initialize user here
-
+        User current = new User(firstname.getText(), lastname.getText(), username.getText(), password.getText());
+        current.complete(selectedFile, phoneNumber.getText(), male.isSelected() ? Gender.Male : Gender.Female);
+        Message message = new Message(MessageType.Register, "", "", "");
+        message.setUser(current);
+        connectToServer();
+        out.writeObject(message);
     }
 
-    public static byte[] toByteArray(Object obj) throws IOException {
-        byte[] bytes = null;
-        ByteArrayOutputStream bos = null;
-        ObjectOutputStream oos = null;
-        try {
-            bos = new ByteArrayOutputStream();
-            oos = new ObjectOutputStream(bos);
-            oos.writeObject(obj);
-            oos.flush();
-            bytes = bos.toByteArray();
-        } finally {
-            if (oos != null) {
-                oos.close();
-            }
-            if (bos != null) {
-                bos.close();
-            }
-        }
-        return bytes;
-    }
-
-    public static Object toObject(byte[] bytes) throws IOException, ClassNotFoundException {
-        Object obj = null;
-        ByteArrayInputStream bis = null;
-        ObjectInputStream ois = null;
-        try {
-            bis = new ByteArrayInputStream(bytes);
-            ois = new ObjectInputStream(bis);
-            obj = ois.readObject();
-        } finally {
-            if (bis != null) {
-                bis.close();
-            }
-            if (ois != null) {
-                ois.close();
-            }
-        }
-        return obj;
-    }
 }
 
 

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="575.0" prefWidth="930.0" stylesheets="@Css/Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SettingsPanel">
+   <children>
+      <AnchorPane prefHeight="575.0" prefWidth="330.0" styleClass="scroll-pane" stylesheets="@Css/Style.css">
+         <children>
+            <ImageView fitHeight="188.0" fitWidth="292.0" layoutX="22.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Resources/gmail-logo.png" />
+               </image>
+            </ImageView>
+            <VBox layoutX="1.0" layoutY="228.0" prefHeight="313.0" prefWidth="330.0">
+               <children>
+                  <Button fx:id="compose" mnemonicParsing="false" onAction="#compose" prefHeight="54.0" prefWidth="330.0" styleClass="button1" text="Compose">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon iconLiteral="fa-plus-circle" iconSize="18" styleClass="icons" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="inbox" mnemonicParsing="false" onAction="#inbox" prefHeight="54.0" prefWidth="330.0" styleClass="button1" text="Inbox">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon iconLiteral="fa-inbox" styleClass="icons" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="create" mnemonicParsing="false" onAction="#registerPanel" prefHeight="54.0" prefWidth="330.0" styleClass="button1" text="Sent">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon iconLiteral="fa-send" styleClass="icons" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="exit2" mnemonicParsing="false" onAction="#Exit" prefHeight="54.0" prefWidth="330.0" styleClass="button1" text="Settings">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon iconLiteral="fa-gear" iconSize="18" styleClass="icons" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="exit" mnemonicParsing="false" onAction="#logout" prefHeight="54.0" prefWidth="330.0" styleClass="button1" text="Logout">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon iconLiteral="fa-window-close" styleClass="icons" />
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <Button fx:id="inboxTitle" layoutX="334.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="596.0" styleClass="titles" text="Settings">
+         <font>
+            <Font size="17.0" />
+         </font>
+         <graphic>
+            <FontIcon iconLiteral="fa-gear" iconSize="20" />
+         </graphic>
+      </Button>
+      <HBox fx:id="h" layoutX="-200.0" layoutY="19.0" prefHeight="100.0" prefWidth="200.0" />
+      <Button fx:id="send" layoutX="362.0" layoutY="508.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="77.0" styleClass="titles" text="Send">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <AnchorPane layoutX="519.0" layoutY="153.0">
+         <children>
+            <Label fx:id="fnl" prefHeight="32.0" prefWidth="130.0" styleClass="text-field" text="Name " />
+            <Label fx:id="phnl" layoutY="43.0" prefHeight="32.0" prefWidth="270.0" styleClass="text-field" text="Phone number" />
+            <Label fx:id="lnl" layoutX="139.0" prefHeight="32.0" prefWidth="130.0" styleClass="text-field" text="Name " />
+            <Label fx:id="bdl" layoutY="85.0" prefHeight="32.0" prefWidth="130.0" styleClass="text-field" text="Birth Date" />
+         </children>
+      </AnchorPane>
+      <FontIcon fx:id="editIcon" iconColor="#646464" iconLiteral="fa-edit" iconSize="18" layoutX="575.0" layoutY="112.0" visible="false" />
+      <Label fx:id="profile" layoutX="519.0" layoutY="91.0" onMouseEntered="#editOn" onMouseExited="#editOff" prefHeight="27.0" prefWidth="78.0" text="Profile">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutX="518.0" layoutY="288.0" prefHeight="118.0" prefWidth="270.0">
+         <children>
+            <TextField fx:id="fne" layoutX="1.0" prefHeight="32.0" prefWidth="130.0" promptText="First Name" />
+            <TextField fx:id="lne" layoutX="139.0" prefHeight="32.0" prefWidth="130.0" promptText="Last Name" />
+            <TextField fx:id="phne" layoutY="43.0" prefHeight="32.0" prefWidth="270.0" promptText="Phone Number" />
+            <DatePicker fx:id="bde" layoutY="85.0" prefHeight="32.0" prefWidth="130.0" style="-fx-background-color: trasnparent;" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -1,5 +1,7 @@
 package Model.Messages;
 
+import Model.User;
+
 import java.io.Serializable;
 
 public class Message implements Serializable
@@ -8,10 +10,20 @@ public class Message implements Serializable
     private String sender;
     private String receiver;
     private String messageText;
+
+    public User getUser() {
+        return user;
+    }
+
     /**
      * server or client use type of message to do correct work correspond to that
      */
     private final MessageType messageType;
+    private User user ;
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     private boolean bookMarked;
     private boolean read;
