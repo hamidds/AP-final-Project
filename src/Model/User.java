@@ -1,5 +1,6 @@
 package Model;
 
+import Model.Connection.Connection;
 import Model.Messages.Conversation;
 import Model.Messages.Mail;
 
@@ -7,8 +8,10 @@ import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -18,16 +21,34 @@ public class User implements Serializable {
     private String password;
     private String phoneNumber;
     private Gender gender;
+
+    public ObjectInputStream getInputStream() {
+        return inputStream;
+    }
+
+    public ObjectOutputStream getOutputStream() {
+        return outputStream;
+    }
+
     private String gmailAddress;
 
-    private ObjectInputStream inputStream;
-    private ObjectOutputStream outputStream;
+    private transient ObjectInputStream inputStream;
+    private transient ObjectOutputStream outputStream;
 
-    private List<Conversation> conversations;
-    private List<Conversation> inbox;
-    private List<Conversation> sent;
+    private List<Conversation> conversations = new ArrayList<>();
+    private List<Conversation> inbox = new ArrayList<>();
+    private List<Conversation> sent = new ArrayList<>();
 
     private File profileImage;
+
+    public List<Conversation> getConversations() {
+        return conversations;
+    }
+
+    public void addConversation(Mail mail) {
+        conversations.add(new Conversation(mail));
+    }
+
 
     public File getProfileImage() {
         return profileImage;
@@ -53,6 +74,11 @@ public class User implements Serializable {
         this.profileImage = avatar;
         this.phoneNumber = phoneNumber;
         this.gender = gender;
+    }
+
+    public void setStreams(ObjectOutputStream outputStream, ObjectInputStream inputStream) {
+        this.outputStream = outputStream;
+        this.inputStream = inputStream;
     }
 
     public String getFirstName() {

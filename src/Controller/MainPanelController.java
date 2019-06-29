@@ -13,9 +13,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -39,21 +42,27 @@ public class MainPanelController implements Initializable {
     private HBox h;
     @FXML
     private TextField searchText;
+    @FXML
+    private ImageView mainPanelAvatar;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         User hamid = new User("hamid", "saffari", "h", "s");
         User Ali = new User("amin", "shafie", "a", "s");
         User reza = new User("reza", "saffari", "r", "s");
-        Mail mail = new Mail(LocalDateTime.now(), "hamid", "reza", "hii","hii");
-        Mail mail1 = new Mail(LocalDateTime.now(), "hamid", "reza", "hii","hiii");
-        Mail mail2 = new Mail(LocalDateTime.now(), "ali", "reza", "hii","hii");
-        Mail mail3 = new Mail(LocalDateTime.now(), "hamid", "ali", "hii","hii");
+        Mail mail = new Mail(LocalDateTime.now(), "hamid", "reza", "hii", "hii");
+        Mail mail1 = new Mail(LocalDateTime.now(), "hamid", "reza", "hii", "hiii");
+        Mail mail2 = new Mail(LocalDateTime.now(), "ali", "reza", "hii", "hii");
+        Mail mail3 = new Mail(LocalDateTime.now(), "hamid", "ali", "hii", "hii");
         Conversation c1 = new Conversation(mail, hamid, Ali);
         Conversation c2 = new Conversation(mail1, hamid, reza);
         Conversation c3 = new Conversation(mail2, Ali, reza);
-        conversations = new ArrayList<>(Arrays.asList(c1, c2, c3));
-
+//        conversations = new ArrayList<>(Arrays.asList(c1, c2, c3));
+        User loggedInUser = LogedInUser.getLoggedInUser();
+        conversations = loggedInUser.getConversations();
+        System.out.println(conversations.size());
+        mainPanelAvatar.setClip(new Circle(60,60,60));
+        mainPanelAvatar.setImage(new Image(loggedInUser.getProfileImage().toURI().toString()));
         inbox1.setCellFactory(inbox1 -> new UserListItem());
         inbox1.setItems(FXCollections.observableArrayList(conversations));
     }

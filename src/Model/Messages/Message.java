@@ -10,6 +10,17 @@ public class Message implements Serializable
     private String sender;
     private String receiver;
     private String messageText;
+    private Mail mail ;
+
+    private boolean okLogedin ;
+
+    public void setOkLogedin(boolean okLogedin) {
+        this.okLogedin = okLogedin;
+    }
+
+    public boolean isOkLogin() {
+        return okLogedin;
+    }
 
     public User getUser() {
         return user;
@@ -30,11 +41,24 @@ public class Message implements Serializable
     private boolean inTrash;
 
 
+    public Message(Mail mail, MessageType messageType) {
+        this.mail = mail;
+        this.messageType = messageType;
+    }
+
     public Message(MessageType messageType, String sender, String receiver, String messageText) {
         this.messageType = messageType;
         this.receiver = receiver;
         this.messageText = messageText;
         this.sender = sender;
+    }
+
+    public Mail getMail() {
+        return mail;
+    }
+
+    public void setMail(Mail mail) {
+        this.mail = mail;
     }
 
     public MessageType getMessageType() {

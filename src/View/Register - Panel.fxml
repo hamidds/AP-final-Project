@@ -109,9 +109,9 @@
       </AnchorPane>
       <AnchorPane fx:id="signInPane" layoutX="431.0" layoutY="602.0" prefHeight="385.0" prefWidth="388.0">
          <children>
-            <TextField fx:id="username1" layoutX="29.0" layoutY="62.0" prefHeight="43.0" prefWidth="330.0" promptText="Email or phone" stylesheets="@Css/Style.css" />
-            <PasswordField layoutX="28.0" layoutY="130.0" prefHeight="43.0" prefWidth="330.0" promptText="Password" stylesheets="@Css/Style.css" />
-            <Button fx:id="signIn" layoutX="253.0" layoutY="219.0" mnemonicParsing="false" onAction="#enter" prefHeight="43.0" prefWidth="105.0" styleClass="button2" stylesheets="@Css/Style.css" text="Sign in" textFill="WHITE">
+            <TextField fx:id="logUser" layoutX="29.0" layoutY="62.0" prefHeight="43.0" prefWidth="330.0" promptText="Email or phone" stylesheets="@Css/Style.css" />
+            <PasswordField fx:id="logPass" layoutX="28.0" layoutY="130.0" prefHeight="43.0" prefWidth="330.0" promptText="Password" stylesheets="@Css/Style.css" />
+            <Button fx:id="signIn" layoutX="253.0" layoutY="219.0" mnemonicParsing="false" onAction="#enter" prefHeight="43.0" prefWidth="94.0" styleClass="button2" stylesheets="@Css/Style.css" text="Sign in" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>

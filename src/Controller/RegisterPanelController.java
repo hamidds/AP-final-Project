@@ -4,6 +4,7 @@ import Model.Connection.Connection;
 import Model.Gender;
 import Model.Messages.Message;
 import Model.Messages.MessageType;
+import Model.PageLoader;
 import Model.User;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
@@ -35,11 +36,11 @@ public class RegisterPanelController implements Initializable {
     private ObjectInputStream in;
     private File selectedFile;
     @FXML
-    private TextField firstname, lastname, username, visiblePassword, visibleConfirm, phoneNumber;
+    private TextField firstname, lastname, username, visiblePassword, visibleConfirm, phoneNumber, logUser;
     @FXML
     private Button next;
     @FXML
-    private PasswordField confirm, password;
+    private PasswordField confirm, password, logPass;
     @FXML
     private AnchorPane anchor, nextAnchor, nextSteps, signInPane;
     @FXML
@@ -70,6 +71,7 @@ public class RegisterPanelController implements Initializable {
     }
 
     public void next(ActionEvent actionEvent) throws IOException {
+        nextSteps.setVisible(true);
         connectToServer();
         emptyFieldChecker();
         birthDateChecker();
@@ -84,7 +86,7 @@ public class RegisterPanelController implements Initializable {
                     transition2.playFromStart();
                     transition1.setToX(-550);
                     transition1.playFromStart();
-                    dissconnectFromServer();
+                    disconnectFromServer();
                 }
             } else {
                 passwordWarning.setText("Those passwords didn't match. Try again.");
@@ -116,7 +118,7 @@ public class RegisterPanelController implements Initializable {
         System.out.println("connected");
     }
 
-    private void dissconnectFromServer() throws IOException {
+    private void disconnectFromServer() throws IOException {
         out.writeObject(new Message(MessageType.Disconnect, "", "", ""));
     }
 
@@ -176,7 +178,18 @@ public class RegisterPanelController implements Initializable {
         confirm.setVisible(true);
     }
 
-    public void enter(ActionEvent actionEvent) {
+    public void enter(ActionEvent actionEvent) throws IOException, ClassNotFoundException {
+        connectToServer();
+        Message message = new Message(MessageType.Login, logUser.getText(), logPass.getText(), "");
+        out.writeObject(message);
+        out.flush();
+        Message message1 = (Message) in.readObject();
+        if (message1.isOkLogin()) {
+            System.out.println("hi");
+            LogedInUser.setLoggedInUser(message1.getUser());
+            new PageLoader().Load("../View/Main - Panel.fxml");
+            System.out.println("login successful");
+        }
     }
 
     public void Exit(ActionEvent actionEvent) {
@@ -195,6 +208,7 @@ public class RegisterPanelController implements Initializable {
 
     public void signInPanel(ActionEvent actionEvent) {
         nextAnchor.setVisible(false);
+        nextSteps.setVisible(false);
         if (signInPane.isVisible()) {
             TranslateTransition transition = new TranslateTransition(Duration.millis(1000), signInPane);
             transition.setToY(-500);
@@ -228,10 +242,16 @@ public class RegisterPanelController implements Initializable {
         // we should initialize user here
         User current = new User(firstname.getText(), lastname.getText(), username.getText(), password.getText());
         current.complete(selectedFile, phoneNumber.getText(), male.isSelected() ? Gender.Male : Gender.Female);
-        Message message = new Message(MessageType.Register, "", "", "");
-        message.setUser(current);
-        connectToServer();
-        out.writeObject(message);
+        Connection newUser = new Connection(current);
+        newUser.initializeServices();
+        LogedInUser.addConnection(current.getUsername(),newUser);
+    }
+
+
+    public void visibleChanger(boolean signInPane, boolean nextAnchor, boolean nextSteps) {
+        this.nextAnchor.setVisible(nextAnchor);
+        this.signInPane.setVisible(signInPane);
+        this.nextSteps.setVisible(nextSteps);
     }
 
 }

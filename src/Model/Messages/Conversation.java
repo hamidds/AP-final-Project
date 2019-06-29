@@ -2,10 +2,11 @@ package Model.Messages;
 
 import Model.User;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Conversation {
+public class Conversation implements Serializable {
     private List<Mail> mails = new ArrayList<>();
     private Mail lastMail;
     private User sender;
@@ -47,6 +48,13 @@ public class Conversation {
         this.receiver = receiver;
     }
 
+    public Conversation(Mail mail) {
+        mails.add(mail);
+        lastMail = mail;
+        this.sender = mail.getSenderUser();
+        this.receiver = mail.getReceiverUser();
+    }
+
     public List<Mail> getMails() {
         return mails;
     }
@@ -67,5 +75,4 @@ public class Conversation {
     public User getReceiver() {
         return receiver;
     }
-// date and time
 }

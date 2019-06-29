@@ -1,9 +1,11 @@
 package Model.Connection;
 
+import Controller.LogedInUser;
 import Model.Messages.Message;
+import Model.User;
 
 public class ClientMessageHandler {
-    public static String handle(Message message) {
+    public static String handle(Message message, User user) {
         String respond = "";
         switch (message.getMessageType()) {
             case Connect:
@@ -13,7 +15,10 @@ public class ClientMessageHandler {
                 respond = message.getSender() + " disconnected";
                 break;
             case Text:
-                respond = message.getSender() + ":" + message.getMessageText();
+                user.addConversation(message.getMail());
+                System.out.println(user.getConversations());
+//                LogedInUser.setLoggedInUser(user);
+                respond = message.getMail().getSender() + ":" + message.getMail().getText();
                 break;
             case Error:
                 respond = message.getReceiver() + " doesn't exist";

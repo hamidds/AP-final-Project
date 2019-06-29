@@ -1,25 +1,32 @@
 package Model.Connection;
 
+import Model.User;
 import Model.Messages.Message;
 import Model.Messages.MessageType;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Objects;
 
 public class Connection {
+
+
     private String currentUsername;
+    private User currentUser;
     private Socket client;
     private ObjectOutputStream out;
     private ObjectInputStream in;
 
-    public Connection(String currentUsername) {
-        this.currentUsername = currentUsername;
-
+    public Connection(User currentUser) {
+        this.currentUser = currentUser;
+        this.currentUsername = currentUser.getUsername();
         try {
             client = new Socket("localhost", 8888);
             out = new ObjectOutputStream(client.getOutputStream());
             in = new ObjectInputStream(client.getInputStream());
-            sendRequest(new Message(MessageType.Connect, currentUsername, "", ""));
+            Message request = new Message(MessageType.Connect, currentUsername, "", "");
+            request.setUser(currentUser);
+            sendRequest(request);
         } catch (IOException e) {
             throw new ServerConnectionException();
         }
@@ -35,7 +42,7 @@ public class Connection {
         listenerThread.start();
     }
 
-    void sendRequest(Message request) {
+    public void sendRequest(Message request) {
         try {
             out.writeObject(request);
         } catch (IOException e) {
@@ -49,10 +56,23 @@ public class Connection {
 
     public String getRespond() {
         try {
-            return ClientMessageHandler.handle((Message) in.readObject());
+            return ClientMessageHandler.handle((Message) in.readObject(),currentUser);
         } catch (IOException | ClassNotFoundException e) {
             throw new ServerConnectionException();
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Connection that = (Connection) o;
+        return Objects.equals(currentUser, that.currentUser);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(currentUser);
     }
 }
 
