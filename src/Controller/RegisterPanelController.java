@@ -69,17 +69,16 @@ public class RegisterPanelController implements Initializable {
         String PASSWORD_REGEX = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,20})";
         pattern = Pattern.compile(PASSWORD_REGEX);
         matcher = pattern.matcher(password.getText());
+        if (!matcher.matches())
+            passwordWarnings();
         return matcher.matches();
     }
 
     public void next(ActionEvent actionEvent) throws IOException {
         nextSteps.setVisible(true);
         connectToServer();
-        emptyFieldChecker();
-        birthDateChecker();
-        if (passwordChecker()) {
-            if (password.getText().equals(confirm.getText())) {
-                System.out.println("if");
+        if (passwordChecker() && birthDateChecker() && emptyFieldChecker()) {
+            if (password.getText().equals(confirm.getText()) || visiblePassword.getText().equals(visibleConfirm.getText())) {
                 out.writeObject(new Message(MessageType.AvailableUsername, username.getText(), "", ""));
                 if (in.readBoolean()) {
                     TranslateTransition transition1 = new TranslateTransition(Duration.millis(1000), nextAnchor);
@@ -95,21 +94,8 @@ public class RegisterPanelController implements Initializable {
                 passwordWarnings();
             }
         } else {
-            passwordWarnings();
+//            passwordWarnings();
         }
-
-        //first we initialize the user according to his/her information
-
-        // REGISTER
-        // SERVER SHOULD DO THIS PART :
-        // if (users.contains(user))
-        // writeObject : registerError
-        // else
-        // prints log messages
-        // add user to users
-        // write object : successfulRegister
-
-        // if (successfulRegister)
 
     }
 
@@ -124,8 +110,14 @@ public class RegisterPanelController implements Initializable {
         out.writeObject(new Message(MessageType.Disconnect, "", "", ""));
     }
 
-    private void birthDateChecker() {
-        System.out.println(birthDate.getEditor().getText());
+    private boolean birthDateChecker() {
+        String birthDate = this.birthDate.getEditor().getText();
+        if (Integer.valueOf(birthDate.split("/")[2]) > 2006) {
+            W6.setVisible(true);
+            this.birthDate.setStyle("-fx-border-color: #D93025");
+            return false;
+        }
+        return true;
     }
 
     private void passwordWarnings() {
@@ -138,7 +130,7 @@ public class RegisterPanelController implements Initializable {
         W5.setVisible(true);
     }
 
-    private void emptyFieldChecker() {
+    private boolean emptyFieldChecker() {
         List<TextField> fields = new ArrayList<>(Arrays.asList(firstname, lastname, username, password, confirm));
         List<FontIcon> warnings = new ArrayList<>(Arrays.asList(W1, W2, W3, W4, W5, W6));
         int counter = -1;
@@ -147,8 +139,10 @@ public class RegisterPanelController implements Initializable {
             if (field.getText().isEmpty()) {
                 field.setStyle("-fx-border-color: #D93025; -fx-prompt-text-fill: #D93025");
                 warnings.get(counter).setVisible(true);
+                return false;
             }
         }
+        return true;
     }
 
     public void invisiblePassword(MouseEvent mouseEvent) {
@@ -200,13 +194,19 @@ public class RegisterPanelController implements Initializable {
     }
 
     public void malePic(MouseEvent mouseEvent) {
-        Image boyDefaultImage = new Image("/View/Resources/boy.png");
-        image.setImage(boyDefaultImage);
+        if (selectedFile == null) {
+            selectedFile = new File("/View/Resources/boy.png");
+            Image boyDefaultImage = new Image("/View/Resources/boy.png");
+            image.setImage(boyDefaultImage);
+        }
     }
 
     public void femalePic(MouseEvent mouseEvent) {
-        Image girDefaultImage = new Image("/View/Resources/girl.png");
-        image.setImage(girDefaultImage);
+        if (selectedFile == null) {
+            selectedFile = new File("/View/Resources/girl.png");
+            Image girDefaultImage = new Image("/View/Resources/girl.png");
+            image.setImage(girDefaultImage);
+        }
     }
 
     public void register(ActionEvent actionEvent) throws IOException {
@@ -226,13 +226,6 @@ public class RegisterPanelController implements Initializable {
         new PageLoader().Load("../View/Register - Panel.fxml");
 
     }
-//
-//
-//    public void visibleChanger(boolean signInPane, boolean nextAnchor, boolean nextSteps) {
-//        this.nextAnchor.setVisible(nextAnchor);
-//        this.signInPane.setVisible(signInPane);
-//        this.nextSteps.setVisible(nextSteps);
-//    }
 
 }
 

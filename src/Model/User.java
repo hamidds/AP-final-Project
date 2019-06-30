@@ -22,6 +22,26 @@ public class User implements Serializable {
     private String phoneNumber;
     private Gender gender;
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    private String birthDate;
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public void editProfile(String fname, String lname, String phonenumb) {
+        this.firstName = fname;
+        this.lastName = lname;
+        this.phoneNumber = phonenumb;
+    }
+
     public ObjectInputStream getInputStream() {
         return inputStream;
     }

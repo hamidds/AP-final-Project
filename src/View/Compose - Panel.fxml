@@ -82,6 +82,6 @@
             <Font size="17.0" />
          </font>
       </Button>
-      <FontIcon iconColor="#8a8a8a" iconLiteral="fa-paperclip" iconSize="20" layoutX="873.0" layoutY="489.0" />
+      <FontIcon fx:id="attach" iconColor="#8a8a8a" iconLiteral="fa-paperclip" iconSize="20" layoutX="873.0" layoutY="489.0" onMouseClicked="#attachFile" />
    </children>
 </AnchorPane>

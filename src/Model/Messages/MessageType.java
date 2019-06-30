@@ -8,5 +8,9 @@ public enum MessageType {
     Login,
     Error,
     AvailableUsername,
+    ChangePro,
+    ChangePass,
+    ChangePic,
+    Refresh,
     currentUser,
 }

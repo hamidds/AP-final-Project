@@ -2,6 +2,7 @@ package Model.Messages;
 
 import Model.User;
 
+import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,6 +13,16 @@ public class Mail implements Serializable {
     private String subject;
     private User receiverUser;
     private User senderUser;
+
+    private File attachedFile ;
+
+    public File getAttachedFile() {
+        return attachedFile;
+    }
+
+    public void setAttachedFile(File attachedFile) {
+        this.attachedFile = attachedFile;
+    }
 
     public User getReceiverUser() {
         return receiverUser;
