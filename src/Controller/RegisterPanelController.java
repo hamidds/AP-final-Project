@@ -35,14 +35,16 @@ public class RegisterPanelController implements Initializable {
     private ObjectOutputStream out;
     private ObjectInputStream in;
     private File selectedFile;
+
+
     @FXML
-    private TextField firstname, lastname, username, visiblePassword, visibleConfirm, phoneNumber, logUser;
+    private TextField firstname, lastname, username, visiblePassword, visibleConfirm, phoneNumber;
     @FXML
     private Button next;
     @FXML
-    private PasswordField confirm, password, logPass;
+    private PasswordField confirm, password;
     @FXML
-    private AnchorPane anchor, nextAnchor, nextSteps, signInPane;
+    private AnchorPane anchor, nextAnchor, nextSteps;
     @FXML
     private DatePicker birthDate;
     @FXML
@@ -178,43 +180,12 @@ public class RegisterPanelController implements Initializable {
         confirm.setVisible(true);
     }
 
-    public void enter(ActionEvent actionEvent) throws IOException, ClassNotFoundException {
-        connectToServer();
-        Message message = new Message(MessageType.Login, logUser.getText(), logPass.getText(), "");
-        out.writeObject(message);
-        out.flush();
-        Message message1 = (Message) in.readObject();
-        if (message1.isOkLogin()) {
-            System.out.println("hi");
-            LogedInUser.setLoggedInUser(message1.getUser());
-            new PageLoader().Load("../View/Main - Panel.fxml");
-            System.out.println("login successful");
-        }
-    }
 
     public void Exit(ActionEvent actionEvent) {
-        nextAnchor.setVisible(false);
-        TranslateTransition transition = new TranslateTransition(Duration.millis(1000), nextSteps);
-        transition.setToX(-500);
-        transition.playFromStart();
-    }
-
-    public void registerPanel(ActionEvent actionEvent) {
-        if (!nextAnchor.isVisible()) {
-            signInPane.setVisible(false);
-            nextAnchor.setVisible(true);
-        }
-    }
-
-    public void signInPanel(ActionEvent actionEvent) {
-        nextAnchor.setVisible(false);
-        nextSteps.setVisible(false);
-        if (signInPane.isVisible()) {
-            TranslateTransition transition = new TranslateTransition(Duration.millis(1000), signInPane);
-            transition.setToY(-500);
-            transition.playFromStart();
-        } else
-            signInPane.setVisible(true);
+//        nextAnchor.setVisible(false);
+//        TranslateTransition transition = new TranslateTransition(Duration.millis(1000), nextSteps);
+//        transition.setToX(-500);
+//        transition.playFromStart();
     }
 
     public void choose(ActionEvent actionEvent) {
@@ -244,15 +215,24 @@ public class RegisterPanelController implements Initializable {
         current.complete(selectedFile, phoneNumber.getText(), male.isSelected() ? Gender.Male : Gender.Female);
         Connection newUser = new Connection(current);
         newUser.initializeServices();
-        LogedInUser.addConnection(current.getUsername(),newUser);
+        LogedInUser.addConnection(current.getUsername(), newUser);
     }
 
-
-    public void visibleChanger(boolean signInPane, boolean nextAnchor, boolean nextSteps) {
-        this.nextAnchor.setVisible(nextAnchor);
-        this.signInPane.setVisible(signInPane);
-        this.nextSteps.setVisible(nextSteps);
+    public void signInPanel(ActionEvent actionEvent) throws IOException {
+        new PageLoader().Load("../View/SignIn - Panel.fxml");
     }
+
+    public void registerPanel(ActionEvent actionEvent) throws IOException {
+        new PageLoader().Load("../View/Register - Panel.fxml");
+
+    }
+//
+//
+//    public void visibleChanger(boolean signInPane, boolean nextAnchor, boolean nextSteps) {
+//        this.nextAnchor.setVisible(nextAnchor);
+//        this.signInPane.setVisible(signInPane);
+//        this.nextSteps.setVisible(nextSteps);
+//    }
 
 }
 

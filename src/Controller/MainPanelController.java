@@ -2,7 +2,6 @@ package Controller;
 
 import Model.Messages.Conversation;
 import Model.Messages.Mail;
-import Model.Messages.MessageType;
 import Model.PageLoader;
 import Model.User;
 import javafx.animation.TranslateTransition;
@@ -15,7 +14,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
@@ -25,7 +23,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -71,23 +68,16 @@ public class MainPanelController implements Initializable {
         new PageLoader().Load("../View/Compose - Panel.fxml");
     }
 
-    public void inbox(ActionEvent actionEvent) {
-
+    public void inbox(ActionEvent actionEvent) throws IOException {
+        new PageLoader().Load("../View/Main - Panel.fxml");
     }
 
-    public void registerPanel(ActionEvent actionEvent) {
-
-    }
-
-    public void Exit(ActionEvent actionEvent) {
-
-    }
-
-    public void logout(ActionEvent actionEvent) {
-
+    public void logout(ActionEvent actionEvent) throws IOException {
+        new PageLoader().Load("../View/Register - Panel.fxml");
     }
 
     public void refresh(ActionEvent actionEvent) {
+
 
     }
 
@@ -113,4 +103,11 @@ public class MainPanelController implements Initializable {
         transition.playFromStart();
     }
 
+    public void Setting(ActionEvent actionEvent) throws IOException {
+        new PageLoader().Load("../View/Settings - Panel.fxml");
+    }
+
+    public void sentBox(ActionEvent actionEvent) {
+
+    }
 }

@@ -37,7 +37,7 @@
                         <FontIcon iconLiteral="fa-inbox" styleClass="icons" />
                      </graphic>
                   </Button>
-                  <Button fx:id="create" mnemonicParsing="false" onAction="#registerPanel" prefHeight="54.0" prefWidth="330.0" styleClass="button1" text="Sent">
+                  <Button fx:id="create" mnemonicParsing="false" onAction="#sentBox" prefHeight="54.0" prefWidth="330.0" styleClass="button1" text="Sent">
                      <font>
                         <Font size="17.0" />
                      </font>
@@ -45,7 +45,7 @@
                         <FontIcon iconLiteral="fa-send" styleClass="icons" />
                      </graphic>
                   </Button>
-                  <Button fx:id="exit2" mnemonicParsing="false" onAction="#Exit" prefHeight="54.0" prefWidth="330.0" styleClass="button1" text="Setting">
+                  <Button fx:id="exit2" mnemonicParsing="false" onAction="#Setting" prefHeight="54.0" prefWidth="330.0" styleClass="button1" text="Setting">
                      <font>
                         <Font size="17.0" />
                      </font>

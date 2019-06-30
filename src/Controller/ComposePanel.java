@@ -29,15 +29,8 @@ public class ComposePanel implements Initializable {
         new PageLoader().Load("../View/Main - Panel.fxml");
     }
 
-    public void compose(ActionEvent actionEvent) {
-    }
-
-    public void registerPanel(ActionEvent actionEvent) {
-
-    }
-
-    public void Exit(ActionEvent actionEvent) throws IOException {
-        new PageLoader().Load("../View/Register - Panel.fxml");
+    public void compose(ActionEvent actionEvent) throws IOException {
+        new PageLoader().Load("../View/Compose - Panel.fxml");
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {
@@ -55,8 +48,15 @@ public class ComposePanel implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("hi");
+
     }
 
 
+    public void sentBox(ActionEvent actionEvent) {
+
+    }
+
+    public void Setting(ActionEvent actionEvent) throws IOException {
+        new PageLoader().Load("../View/Settings - Panel.fxml");
+    }
 }
