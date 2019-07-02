@@ -88,6 +88,9 @@ public class RegisterPanelController implements Initializable {
                     transition1.setToX(-550);
                     transition1.playFromStart();
                     disconnectFromServer();
+                } else {
+                    Alert userNotFound = new Alert(Alert.AlertType.INFORMATION, "this username is already taken!");
+                    userNotFound.showAndWait();
                 }
             } else {
                 passwordWarning.setText("Those passwords didn't match. Try again.");
@@ -100,7 +103,7 @@ public class RegisterPanelController implements Initializable {
     }
 
     private void connectToServer() throws IOException {
-        client = new Socket("localhost", 8888);
+        client = new Socket(IPSetter.getIP(), 8888);
         out = new ObjectOutputStream(client.getOutputStream());
         in = new ObjectInputStream(client.getInputStream());
         System.out.println("connected");
@@ -175,11 +178,8 @@ public class RegisterPanelController implements Initializable {
     }
 
 
-    public void Exit(ActionEvent actionEvent) {
-//        nextAnchor.setVisible(false);
-//        TranslateTransition transition = new TranslateTransition(Duration.millis(1000), nextSteps);
-//        transition.setToX(-500);
-//        transition.playFromStart();
+    public void Exit(ActionEvent actionEvent) throws IOException {
+        new PageLoader().Load("../View/IPSetter.fxml");
     }
 
     public void choose(ActionEvent actionEvent) {

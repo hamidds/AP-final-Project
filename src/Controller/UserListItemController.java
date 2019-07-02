@@ -1,8 +1,9 @@
 package Controller;
 
 import Model.Messages.Conversation;
+import Model.Messages.Message;
+import Model.Messages.MessageType;
 import Model.PageLoader;
-import Model.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -22,7 +23,7 @@ public class UserListItemController {
     @FXML
     private ImageView profile;
     @FXML
-    private Label name, message,dateTime;
+    private Label name, message, dateTime;
     @FXML
     private FontIcon bookMark, unBookMark, flag, unflag;
 
@@ -50,12 +51,18 @@ public class UserListItemController {
 
     public void remove() {
         conversation.setInTrash(true);
+        Message CONVERSATION_DELETE = new Message(MessageType.ConversationDelete, conversation.getSubject(), "", "");
+        CONVERSATION_DELETE.setUser(LogedInUser.getLoggedInUser());
+        LogedInUser.getLoggedInUserConnection().sendRequest(CONVERSATION_DELETE);
     }
 
     public void bookmark() {
         bookMark.setVisible(false);
         unBookMark.setVisible(true);
         conversation.setBookMarked(false);
+        Message CONVERSATION_BOOKMARK = new Message(MessageType.ConversationBookmark, conversation.getSubject(), "", "");
+        CONVERSATION_BOOKMARK.setUser(LogedInUser.getLoggedInUser());
+        LogedInUser.getLoggedInUserConnection().sendRequest(CONVERSATION_BOOKMARK);
     }
 
 
@@ -63,6 +70,9 @@ public class UserListItemController {
         flag.setVisible(false);
         unflag.setVisible(true);
         conversation.setRead(false);
+        Message CONVERSATION_READ = new Message(MessageType.ConversationRead, conversation.getSubject(), "", "");
+        CONVERSATION_READ.setUser(LogedInUser.getLoggedInUser());
+        LogedInUser.getLoggedInUserConnection().sendRequest(CONVERSATION_READ);
     }
 
 
@@ -70,12 +80,18 @@ public class UserListItemController {
         unflag.setVisible(false);
         flag.setVisible(true);
         conversation.setRead(true);
+        Message CONVERSATION_READ = new Message(MessageType.ConversationRead, conversation.getSubject(), "", "");
+        CONVERSATION_READ.setUser(LogedInUser.getLoggedInUser());
+        LogedInUser.getLoggedInUserConnection().sendRequest(CONVERSATION_READ);
     }
 
     public void unBookMark() {
         unBookMark.setVisible(false);
         bookMark.setVisible(true);
         conversation.setBookMarked(true);
+        Message CONVERSATION_BOOKMARK = new Message(MessageType.ConversationBookmark, conversation.getSubject(), "", "");
+        CONVERSATION_BOOKMARK.setUser(LogedInUser.getLoggedInUser());
+        LogedInUser.getLoggedInUserConnection().sendRequest(CONVERSATION_BOOKMARK);
     }
 
     public void mouseOn(MouseEvent mouseEvent) {

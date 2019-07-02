@@ -11,7 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -26,31 +25,32 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainPanelController implements Initializable {
-    private List<Conversation> conversations;
-
+    private List<Mail> mails;
     private Socket client;
     private ObjectOutputStream out;
     private ObjectInputStream in;
     private User loggedInUser;
+    private List<Conversation> conversations;
 
     @FXML
     private AnchorPane opend;
     @FXML
-    private ListView<Conversation> inbox1;
+    private ListView<Mail> emails;
     @FXML
-    private Label text, name;
+    private ListView<Conversation> inbox1;
     @FXML
     private HBox h;
     @FXML
     private TextField searchText;
     @FXML
     private ImageView mainPanelAvatar;
+    private boolean CBOX = true;
+    private boolean MBOX;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -67,8 +67,6 @@ public class MainPanelController implements Initializable {
 //        conversations = new ArrayList<>(Arrays.asList(c1, c2, c3));
 
 
-
-
         loggedInUser = LogedInUser.getLoggedInUser();
         conversations = loggedInUser.getConversations();
         mainPanelAvatar.setClip(new Circle(60, 60, 60));
@@ -78,7 +76,7 @@ public class MainPanelController implements Initializable {
     }
 
     private void connectToServer() throws IOException {
-        client = new Socket("localhost", 8888);
+        client = new Socket(IPSetter.getIP(), 8888);
         out = new ObjectOutputStream(client.getOutputStream());
         in = new ObjectInputStream(client.getInputStream());
         System.out.println("connected");
@@ -106,7 +104,8 @@ public class MainPanelController implements Initializable {
         Message refreshMessage = new Message(MessageType.Refresh, "", "", "");
         refreshMessage.setUser(loggedInUser);
         out.writeObject(refreshMessage);
-        LogedInUser.setLoggedInUser((User) in.readObject());
+        Message USER = (Message) in.readObject();
+        LogedInUser.setLoggedInUser(USER.getUser());
         loggedInUser = LogedInUser.getLoggedInUser();
         conversations = loggedInUser.getConversations();
         inbox1.setCellFactory(inbox1 -> new UserListItem());
@@ -124,22 +123,37 @@ public class MainPanelController implements Initializable {
         inbox1.setItems(FXCollections.observableArrayList(searched));
     }
 
-    public void open(ActionEvent actionEvent) {
+    public void open(ActionEvent actionEvent) throws IOException {
         if (inbox1.getSelectionModel().isEmpty())
             return;
         Conversation conversation = inbox1.getSelectionModel().getSelectedItem();
-        inbox1.setVisible(false);
-        name.setText(conversation.getSender().toString() + "<" + conversation.getSender().getGmailAddress() + ">");
-        TranslateTransition transition = new TranslateTransition(Duration.millis(1000), opend);
-        transition.setToX(-600);
-        transition.playFromStart();
+        if (CBOX) {
+//        inbox1.setVisible(false);
+//        name.setText(conversation.getSender().toString() + "<" + conversation.getSender().getGmailAddress() + ">");
+            mails = conversation.getMails();
+            emails.setCellFactory(emails -> new UserListItemMails());
+            emails.setItems(FXCollections.observableArrayList(mails));
+            TranslateTransition transition = new TranslateTransition(Duration.millis(1000), emails);
+            transition.setToX(-635);
+            transition.playFromStart();
+            currentMail.setConversation(conversation);
+            CBOX = false;
+            MBOX = true;
+        } else if (MBOX) {
+            Mail mail = emails.getSelectionModel().getSelectedItem();
+            currentMail.setConversation(conversation);
+            currentMail.setMail(mail);
+            MBOX = false;
+            new PageLoader().Load("../View/Mail.fxml");
+        }
+
     }
 
     public void Setting(ActionEvent actionEvent) throws IOException {
         new PageLoader().Load("../View/Settings - Panel.fxml");
     }
 
-    public void sentBox(ActionEvent actionEvent) {
-
+    public void sentBox(ActionEvent actionEvent) throws IOException {
+        new PageLoader().Load("../View/Sent Mails.fxml");
     }
 }

@@ -30,7 +30,7 @@ public class ComposePanel implements Initializable {
     @FXML
     private Button send;
 
-    private File attached ;
+    private File attached;
 
 
     @Override
@@ -43,7 +43,7 @@ public class ComposePanel implements Initializable {
         Mail newMail = new Mail(LocalDateTime.now(), loggedInUser.getUsername(), recepient.getText(), subject.getText(), mailText.getText());
         newMail.setSenderUser(loggedInUser);
         if (attached != null)
-        newMail.setAttachedFile(attached);
+            newMail.setAttachedFile(attached);
         Message newMessage = new Message(newMail, MessageType.Text);
         LogedInUser.getLoggedInUserConnection().sendRequest(newMessage);
     }
@@ -56,14 +56,14 @@ public class ComposePanel implements Initializable {
         new PageLoader().Load("../View/Compose - Panel.fxml");
     }
 
-    public void logout(ActionEvent actionEvent) throws IOException {
-        new PageLoader().Load("../View/SignIn - Panel.fxml");
-    }
-
 
     public void sentBox(ActionEvent actionEvent) throws IOException {
         new PageLoader().Load("../View/Sent Mails.fxml");
 
+    }
+
+    public void logout(ActionEvent actionEvent) throws IOException {
+        new PageLoader().Load("../View/SignIn - Panel.fxml");
     }
 
     public void Setting(ActionEvent actionEvent) throws IOException {
@@ -73,6 +73,11 @@ public class ComposePanel implements Initializable {
     public void attachFile(MouseEvent mouseEvent) {
         FileChooser fileChooser = new FileChooser();
         attached = fileChooser.showOpenDialog(null);
+    }
+
+    public void replyInit(String username) {
+        recepient.setText(username);
+        recepient.setEditable(false);
     }
 
 }

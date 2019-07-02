@@ -55,9 +55,18 @@ public class User implements Serializable {
     private transient ObjectInputStream inputStream;
     private transient ObjectOutputStream outputStream;
 
+    public List<Mail> getSent() {
+        return sent;
+    }
+
     private List<Conversation> conversations = new ArrayList<>();
     private List<Conversation> inbox = new ArrayList<>();
-    private List<Conversation> sent = new ArrayList<>();
+    private List<Mail> sent = new ArrayList<>();
+
+    public void addSent(Mail mail) {
+        sent.add(mail);
+    }
+
 
     private File profileImage;
 

@@ -6,8 +6,65 @@ import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class Mail implements Serializable {
+
+
+    private boolean spam;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Mail mail = (Mail) o;
+        return Objects.equals(text, mail.text);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(text);
+    }
+
+    public boolean isSpam() {
+        return spam;
+    }
+
+    public void setSpam(boolean spam) {
+        this.spam = spam;
+    }
+
+    public boolean isBookMarked() {
+        return bookMarked;
+    }
+
+    public void setBookMarked(boolean bookMarked) {
+        this.bookMarked = bookMarked;
+    }
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
+    }
+
+    public boolean isInTrash() {
+        return inTrash;
+    }
+
+    public void setInTrash(boolean inTrash) {
+        this.inTrash = inTrash;
+    }
+
+    private boolean bookMarked;
+    private boolean read;
+    private boolean inTrash;
+
+
+
+
     private String sender;
     private String receiver;
     private String subject;

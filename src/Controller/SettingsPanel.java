@@ -38,7 +38,7 @@ public class SettingsPanel implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        userUpdate();
+        userUpdate();
     }
 
     private void userUpdate() {
@@ -93,12 +93,12 @@ public class SettingsPanel implements Initializable {
         Message changeUser = new Message(MessageType.ChangePro,
                 fne.getText().isEmpty() ? loggedInUser.getFirstName() : fne.getText(),
                 lne.getText().isEmpty() ? loggedInUser.getLastName() : lne.getText(),
-                phn.getText().isEmpty() ? loggedInUser.getPhoneNumber() : fne.getText());
+                phnl.getText().isEmpty() ? loggedInUser.getPhoneNumber() : phnl.getText());
         changeUser.setUser(loggedInUser);
         LogedInUser.getLoggedInUserConnection().sendRequest(changeUser);
+        userUpdate();
         editablePane.setVisible(false);
         unEditablePane.setVisible(true);
-        userUpdate();
     }
 
     public void passChange(MouseEvent mouseEvent) throws IOException {

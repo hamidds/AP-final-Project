@@ -31,7 +31,7 @@ public class SignInPanel {
 
 
     private void connectToServer() throws IOException {
-        client = new Socket("localhost", 8888);
+        client = new Socket(IPSetter.getIP(), 8888);
         out = new ObjectOutputStream(client.getOutputStream());
         in = new ObjectInputStream(client.getInputStream());
         System.out.println("connected");
@@ -48,8 +48,8 @@ public class SignInPanel {
         new PageLoader().Load("../View/Register - Panel.fxml");
     }
 
-    public void Exit(ActionEvent actionEvent) {
-
+    public void Exit(ActionEvent actionEvent) throws IOException {
+        new PageLoader().Load("../View/IPSetter.fxml");
     }
 
     public void enter(ActionEvent actionEvent) throws IOException, ClassNotFoundException {

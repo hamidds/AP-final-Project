@@ -1,5 +1,6 @@
 package Model.Connection;
 
+import Controller.IPSetter;
 import Model.User;
 import Model.Messages.Message;
 import Model.Messages.MessageType;
@@ -21,7 +22,7 @@ public class Connection {
         this.currentUser = currentUser;
         this.currentUsername = currentUser.getUsername();
         try {
-            client = new Socket("localhost", 8888);
+            client = new Socket(IPSetter.getIP(), 8888);
             out = new ObjectOutputStream(client.getOutputStream());
             in = new ObjectInputStream(client.getInputStream());
             Message request = new Message(MessageType.Connect, currentUsername, "", "");
@@ -56,7 +57,7 @@ public class Connection {
 
     public String getRespond() {
         try {
-            return ClientMessageHandler.handle((Message) in.readObject(),currentUser);
+            return ClientMessageHandler.handle((Message) in.readObject(), currentUser);
         } catch (IOException | ClassNotFoundException e) {
             throw new ServerConnectionException();
         }

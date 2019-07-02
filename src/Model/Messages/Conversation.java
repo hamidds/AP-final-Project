@@ -5,6 +5,7 @@ import Model.User;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Conversation implements Serializable {
     private List<Mail> mails = new ArrayList<>();
@@ -16,6 +17,29 @@ public class Conversation implements Serializable {
     private boolean read;
     private boolean inTrash;
 
+
+    public String getSubject() {
+        return subject;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Conversation that = (Conversation) o;
+        return Objects.equals(subject, that.subject);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(subject);
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    private String subject;
 
     public void setBookMarked(boolean bookMarked) {
         this.bookMarked = bookMarked;
@@ -46,6 +70,7 @@ public class Conversation implements Serializable {
         lastMail = mail;
         this.sender = sender;
         this.receiver = receiver;
+        subject = mail.getSubject();
     }
 
     public Conversation(Mail mail) {
@@ -53,10 +78,20 @@ public class Conversation implements Serializable {
         lastMail = mail;
         this.sender = mail.getSenderUser();
         this.receiver = mail.getReceiverUser();
+        subject = mail.getSubject();
+    }
+
+    public Conversation(String subject) {
+        this.subject = subject;
     }
 
     public List<Mail> getMails() {
         return mails;
+    }
+
+
+    public void setLastMail(Mail lastMail) {
+        this.lastMail = lastMail;
     }
 
     public Mail getLastMail() {
@@ -75,4 +110,5 @@ public class Conversation implements Serializable {
     public User getReceiver() {
         return receiver;
     }
+// date and time
 }

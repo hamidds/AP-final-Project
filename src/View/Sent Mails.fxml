@@ -1,14 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Controller.SentMails"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="575.0" prefWidth="930.0" stylesheets="@Css/Style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SentMails">
+   <children>
+      <AnchorPane prefHeight="575.0" prefWidth="330.0" styleClass="scroll-pane" stylesheets="@Css/Style.css">
+         <children>
+            <ImageView fx:id="mainPanelAvatar" fitHeight="154.0" fitWidth="192.0" layoutX="70.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" />
+            <VBox layoutX="1.0" layoutY="228.0" prefHeight="313.0" prefWidth="330.0">
+               <children>
+                  <Button fx:id="compose" mnemonicParsing="false" onAction="#compose" prefHeight="54.0" prefWidth="330.0" styleClass="button1" text="Compose">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon iconLiteral="fa-plus-circle" iconSize="18" styleClass="icons" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="inbox" mnemonicParsing="false" onAction="#inbox" prefHeight="54.0" prefWidth="330.0" styleClass="button1" text="Inbox">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon iconLiteral="fa-inbox" styleClass="icons" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="create" mnemonicParsing="false" onAction="#sentBox" prefHeight="54.0" prefWidth="330.0" styleClass="button1" text="Sent">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon iconLiteral="fa-send" styleClass="icons" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="exit2" mnemonicParsing="false" onAction="#Setting" prefHeight="54.0" prefWidth="330.0" styleClass="button1" text="Setting">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon iconLiteral="fa-gear" iconSize="18" styleClass="icons" />
+                     </graphic>
+                  </Button>
+                  <Button fx:id="exit" mnemonicParsing="false" onAction="#logout" prefHeight="54.0" prefWidth="330.0" styleClass="button1" text="Logout">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <graphic>
+                        <FontIcon iconLiteral="fa-window-close" styleClass="icons" />
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <ListView fx:id="sentMails" layoutX="348.0" layoutY="49.0" prefHeight="433.0" prefWidth="568.0" />
+      <Button fx:id="inboxTitle" layoutX="334.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="596.0" styleClass="titles" text="Inbox">
+         <font>
+            <Font size="17.0" />
+         </font>
+         <graphic>
+            <FontIcon iconLiteral="fa-inbox" />
+         </graphic>
+      </Button>
+      <Button fx:id="refresh" layoutX="808.0" layoutY="489.0" mnemonicParsing="false" onAction="#refresh" prefHeight="38.0" prefWidth="101.0" styleClass="titles" text="Refresh">
+         <font>
+            <Font size="17.0" />
+         </font>
+         <graphic>
+            <FontIcon iconLiteral="fa-repeat" />
+         </graphic>
+      </Button>
+      <Button fx:id="search" layoutX="602.0" layoutY="489.0" mnemonicParsing="false" onAction="#search" prefHeight="38.0" prefWidth="102.0" styleClass="titles" text="Search">
+         <font>
+            <Font size="17.0" />
+         </font>
+         <graphic>
+            <FontIcon iconLiteral="fa-search" />
+         </graphic>
+      </Button>
+      <TextField fx:id="searchText" layoutX="348.0" layoutY="489.0" prefHeight="38.0" prefWidth="244.0" promptText="Search" styleClass="text-field" />
+      <Button fx:id="openbtn" layoutX="704.0" layoutY="489.0" mnemonicParsing="false" onAction="#open" prefHeight="38.0" prefWidth="108.0" styleClass="titles" text="Open">
+         <font>
+            <Font size="17.0" />
+         </font>
+         <graphic>
+            <FontIcon fx:id="openIcon" iconLiteral="fa-envelope-open" />
+         </graphic>
+      </Button>
+      <HBox fx:id="h" layoutX="-200.0" layoutY="19.0" prefHeight="100.0" prefWidth="200.0" />
+   </children>
 </AnchorPane>

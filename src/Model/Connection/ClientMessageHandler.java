@@ -10,6 +10,7 @@ public class ClientMessageHandler {
         switch (message.getMessageType()) {
             case ChangePass:
             case ChangePro:
+            case Sent:
                 LogedInUser.setLoggedInUser(message.getUser());
                 break;
             case Connect:

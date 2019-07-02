@@ -11,6 +11,19 @@
     -fx-border-radius: 0px;
 }
 
+.button3 {
+    -fx-background-color: transparent;
+    -fx-border-radius: 0px;
+}
+
+.button3:hover {
+    -fx-background-color: #a3a3a3;
+    -fx-text-fill: white;
+}
+
+
+
+
 .button1:pressed {
     -fx-background-color: #0d9eb6;
 }

@@ -12,5 +12,14 @@ public enum MessageType {
     ChangePass,
     ChangePic,
     Refresh,
-    currentUser,
+    Sent,
+    Reply,
+    Forward,
+    MailBookmark,
+    ConversationBookmark,
+    Spam,
+    MailDelete,
+    ConversationDelete,
+    ConversationRead,
+    MailRead;
 }
