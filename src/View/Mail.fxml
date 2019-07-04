@@ -2,11 +2,9 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
@@ -70,82 +68,68 @@
             <FontIcon iconLiteral="fa-inbox" />
          </graphic>
       </Button>
-      <HBox fx:id="h" layoutX="-200.0" layoutY="19.0" prefHeight="100.0" prefWidth="200.0" />
-      <AnchorPane fx:id="opend" layoutX="348.0" layoutY="46.0" prefHeight="512.0" prefWidth="568.0" stylesheets="@Css/Style.css">
+      <AnchorPane fx:id="opend" layoutX="348.0" layoutY="49.0" prefHeight="512.0" prefWidth="568.0" stylesheets="@Css/Style.css">
          <children>
-            <ImageView fx:id="profileImage" fitHeight="87.0" fitWidth="108.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="name" layoutX="143.0" layoutY="38.0" prefHeight="38.0" prefWidth="287.0" text="Name">
+            <ImageView fx:id="profileImage" fitHeight="78.0" fitWidth="100.0" layoutX="14.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="name" layoutX="130.0" layoutY="5.0" prefHeight="38.0" prefWidth="287.0" style="-fx-background-color: EFEFEF;" text="Name" textFill="#828282">
                <font>
-                  <Font size="20.0" />
+                  <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="text" alignment="TOP_LEFT" layoutX="101.0" layoutY="101.0" prefHeight="154.0" prefWidth="330.0" style="-fx-border-color: #616161;">
-               <font>
-                  <Font size="15.0" />
-               </font></Label>
-            <VBox layoutX="431.0" layoutY="101.0" prefHeight="154.0" prefWidth="100.0">
+            <AnchorPane fx:id="more" layoutX="506.0" layoutY="44.0" prefHeight="322.0" prefWidth="47.0" visible="false">
                <children>
-                  <HBox prefHeight="52.0" prefWidth="108.0">
+                  <VBox prefHeight="322.0" prefWidth="59.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#spam" prefHeight="63.0" prefWidth="56.0" styleClass="button3">
                            <graphic>
-                              <FontIcon iconLiteral="fa-user-times" iconSize="20" />
+                              <FontIcon iconColor="#6c6c6c" iconLiteral="fa-user-times" iconSize="20" />
                            </graphic>
                         </Button>
                         <Button mnemonicParsing="false" onAction="#delete" prefHeight="63.0" prefWidth="56.0" styleClass="button3" stylesheets="@Css/Style.css">
                            <graphic>
-                              <FontIcon iconLiteral="fa-trash" iconSize="20" />
+                              <FontIcon iconColor="#6c6c6c" iconLiteral="fa-trash" iconSize="20" />
                            </graphic>
                         </Button>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="52.0" prefWidth="108.0">
-                     <children>
                         <Button mnemonicParsing="false" onAction="#bookmark" prefHeight="63.0" prefWidth="56.0" styleClass="button3">
                            <graphic>
-                              <FontIcon iconLiteral="fa-bookmark" iconSize="20" />
+                              <FontIcon iconColor="#6c6c6c" iconLiteral="fa-bookmark" iconSize="20" />
                            </graphic>
                         </Button>
                         <Button mnemonicParsing="false" onAction="#read" prefHeight="63.0" prefWidth="56.0" styleClass="button3">
                            <graphic>
-                              <FontIcon iconLiteral="fa-envelope" iconSize="20" />
+                              <FontIcon iconColor="#6c6c6c" iconLiteral="fa-envelope" iconSize="20" />
                            </graphic>
                         </Button>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="52.0" prefWidth="108.0">
-                     <children>
                         <Button mnemonicParsing="false" onAction="#reply" prefHeight="63.0" prefWidth="56.0" styleClass="button3">
                            <graphic>
-                              <FontIcon iconLiteral="fa-mail-reply" iconSize="20" />
+                              <FontIcon iconColor="#6c6c6c" iconLiteral="fa-mail-reply" iconSize="20" />
                            </graphic>
                         </Button>
                         <Button mnemonicParsing="false" onAction="#forward" prefHeight="63.0" prefWidth="56.0" styleClass="button3">
                            <graphic>
-                              <FontIcon iconLiteral="fa-mail-forward" iconSize="20" />
+                              <FontIcon iconColor="#6c6c6c" iconLiteral="fa-mail-forward" iconSize="20" />
                            </graphic>
                         </Button>
                      </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <Label fx:id="mailDate" alignment="CENTER" layoutX="427.0" layoutY="38.0" prefHeight="38.0" prefWidth="108.0" text="Name">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <AnchorPane fx:id="rePane" layoutX="101.0" layoutY="275.0" visible="false">
-               <children>
-                  <TextArea fx:id="reText" prefHeight="66.0" prefWidth="330.0" promptText="Text" styleClass="text-field" />
-                  <Button layoutX="346.0" layoutY="7.0" mnemonicParsing="false" onAction="#replySend" prefHeight="51.0" prefWidth="67.0" styleClass="button3" text="Send" />
+                  </VBox>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="foPane" layoutX="101.0" layoutY="347.0" prefHeight="66.0" prefWidth="399.0" visible="false">
+            <Label fx:id="mailDate" layoutX="130.0" layoutY="43.0" prefHeight="38.0" prefWidth="287.0" style="-fx-background-color: EFEFEF;" text="Date" />
+            <AnchorPane fx:id="rePane" layoutX="38.0" layoutY="348.0" prefHeight="87.0" prefWidth="414.0" visible="false">
+               <children>
+                  <Button layoutX="346.0" layoutY="16.0" mnemonicParsing="false" onAction="#replySend" prefHeight="51.0" prefWidth="67.0" styleClass="button3" text="Send" />
+                  <TextField fx:id="reText" layoutY="5.0" prefHeight="78.0" prefWidth="264.0" promptText="Answer" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="foPane" layoutX="34.0" layoutY="442.0" prefHeight="66.0" prefWidth="414.0" visible="false">
                <children>
                   <Button layoutX="332.0" layoutY="7.0" mnemonicParsing="false" onAction="#forwardSend" prefHeight="43.0" prefWidth="67.0" styleClass="button3" text="Forward" />
-                  <TextField fx:id="foText" layoutX="14.0" layoutY="7.0" prefHeight="45.0" prefWidth="271.0" />
+                  <TextField fx:id="foText" layoutX="9.0" layoutY="7.0" prefHeight="46.0" prefWidth="252.0" />
                </children>
             </AnchorPane>
+            <TextField fx:id="text" alignment="TOP_LEFT" disable="true" layoutX="38.0" layoutY="90.0" prefHeight="246.0" prefWidth="442.0" />
+            <FontIcon iconColor="#929292" iconLiteral="fa-gears" iconSize="20" layoutX="522.0" layoutY="36.0" onMouseClicked="#showMore" />
+            <FontIcon fx:id="saveAttached" iconColor="#8a8a8a" iconLiteral="fa-paperclip" iconSize="20" layoutX="454.0" layoutY="324.0" onMouseClicked="#SaveFile" wrappingWidth="21.428571701049805" />
          </children>
       </AnchorPane>
    </children>

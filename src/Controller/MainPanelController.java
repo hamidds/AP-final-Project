@@ -8,6 +8,7 @@ import Model.PageLoader;
 import Model.User;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,6 +21,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -67,10 +71,12 @@ public class MainPanelController implements Initializable {
 //        conversations = new ArrayList<>(Arrays.asList(c1, c2, c3));
 
 
-        loggedInUser = LogedInUser.getLoggedInUser();
+        loggedInUser = LoggedInUser.getLoggedInUser();
         conversations = loggedInUser.getConversations();
         mainPanelAvatar.setClip(new Circle(60, 60, 60));
-        mainPanelAvatar.setImage(new Image(loggedInUser.getProfileImage().toURI().toString()));
+        mainPanelAvatar.setImage(LoggedInUser.getLoggedInUserImage());
+
+//        mainPanelAvatar.setImage(new Image(loggedInUser.getProfileImage().toURI().toString()));
         inbox1.setCellFactory(inbox1 -> new UserListItem());
         inbox1.setItems(FXCollections.observableArrayList(conversations));
     }
@@ -105,8 +111,8 @@ public class MainPanelController implements Initializable {
         refreshMessage.setUser(loggedInUser);
         out.writeObject(refreshMessage);
         Message USER = (Message) in.readObject();
-        LogedInUser.setLoggedInUser(USER.getUser());
-        loggedInUser = LogedInUser.getLoggedInUser();
+        LoggedInUser.setLoggedInUser(USER.getUser());
+        loggedInUser = LoggedInUser.getLoggedInUser();
         conversations = loggedInUser.getConversations();
         inbox1.setCellFactory(inbox1 -> new UserListItem());
         inbox1.setItems(FXCollections.observableArrayList(conversations));

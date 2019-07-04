@@ -61,9 +61,15 @@ public class Mail implements Serializable {
     private boolean bookMarked;
     private boolean read;
     private boolean inTrash;
+    private boolean fileIsDownloaded;
 
+    public boolean isFileIsDownloaded() {
+        return fileIsDownloaded;
+    }
 
-
+    public void setFileIsDownloaded(boolean fileIsDownloaded) {
+        this.fileIsDownloaded = fileIsDownloaded;
+    }
 
     private String sender;
     private String receiver;
@@ -71,7 +77,16 @@ public class Mail implements Serializable {
     private User receiverUser;
     private User senderUser;
 
-    private File attachedFile ;
+    private File attachedFile;
+    private byte[] attached;
+
+    public byte[] getAttached() {
+        return attached;
+    }
+
+    public void setAttached(byte[] attached) {
+        this.attached = attached;
+    }
 
     public File getAttachedFile() {
         return attachedFile;

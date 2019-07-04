@@ -42,7 +42,7 @@ public class SettingsPanel implements Initializable {
     }
 
     private void userUpdate() {
-        loggedInUser = LogedInUser.getLoggedInUser();
+        loggedInUser = LoggedInUser.getLoggedInUser();
         fillData();
     }
 
@@ -95,7 +95,7 @@ public class SettingsPanel implements Initializable {
                 lne.getText().isEmpty() ? loggedInUser.getLastName() : lne.getText(),
                 phnl.getText().isEmpty() ? loggedInUser.getPhoneNumber() : phnl.getText());
         changeUser.setUser(loggedInUser);
-        LogedInUser.getLoggedInUserConnection().sendRequest(changeUser);
+        LoggedInUser.getLoggedInUserConnection().sendRequest(changeUser);
         userUpdate();
         editablePane.setVisible(false);
         unEditablePane.setVisible(true);
@@ -105,7 +105,7 @@ public class SettingsPanel implements Initializable {
         if (pe.getText().equals(ce.getText())) {
             Message changePass = new Message(MessageType.ChangePass, pe.getText(), "", "");
             changePass.setUser(loggedInUser);
-            LogedInUser.getLoggedInUserConnection().sendRequest(changePass);
+            LoggedInUser.getLoggedInUserConnection().sendRequest(changePass);
             userUpdate();
         }
     }

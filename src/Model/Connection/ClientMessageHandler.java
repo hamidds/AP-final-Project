@@ -1,17 +1,19 @@
 package Model.Connection;
 
-import Controller.LogedInUser;
+import Controller.LoggedInUser;
 import Model.Messages.Message;
 import Model.User;
 
+import java.io.IOException;
+
 public class ClientMessageHandler {
-    public static String handle(Message message, User user) {
+    public static String handle(Message message, User user) throws IOException {
         String respond = "";
         switch (message.getMessageType()) {
             case ChangePass:
             case ChangePro:
             case Sent:
-                LogedInUser.setLoggedInUser(message.getUser());
+                LoggedInUser.setLoggedInUser(message.getUser());
                 break;
             case Connect:
                 respond = message.getSender() + " connected";

@@ -21,5 +21,7 @@ public enum MessageType {
     MailDelete,
     ConversationDelete,
     ConversationRead,
-    MailRead;
+    MailRead,
+    ForgotPass,
+    CheckSecurityQuestion,
 }

@@ -17,6 +17,7 @@ public class Connection {
     private Socket client;
     private ObjectOutputStream out;
     private ObjectInputStream in;
+    private boolean isClient;
 
     public Connection(User currentUser) {
         this.currentUser = currentUser;
@@ -31,6 +32,30 @@ public class Connection {
         } catch (IOException e) {
             throw new ServerConnectionException();
         }
+    }
+
+    public Connection(User currentUser, boolean isClient) {
+        this.currentUser = currentUser;
+        this.currentUsername = currentUser.getUsername();
+        this.isClient = isClient;
+        try {
+            client = new Socket(IPSetter.getIP(), 8888);
+            out = new ObjectOutputStream(client.getOutputStream());
+            in = new ObjectInputStream(client.getInputStream());
+            Message request = new Message(isClient ? MessageType.Register : MessageType.Connect, currentUsername, "", "");
+            request.setUser(currentUser);
+            sendRequest(request);
+        } catch (IOException e) {
+            throw new ServerConnectionException();
+        }
+    }
+
+    public ObjectOutputStream getOut() {
+        return out;
+    }
+
+    public ObjectInputStream getIn() {
+        return in;
     }
 
     public void disconnect() {
@@ -75,5 +100,7 @@ public class Connection {
     public int hashCode() {
         return Objects.hash(currentUser);
     }
+
+
 }
 

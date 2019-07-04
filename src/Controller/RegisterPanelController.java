@@ -36,9 +36,11 @@ public class RegisterPanelController implements Initializable {
     private ObjectInputStream in;
     private File selectedFile;
 
+    private Connection connection;
+
 
     @FXML
-    private TextField firstname, lastname, username, visiblePassword, visibleConfirm, phoneNumber;
+    private TextField firstname, lastname, username, visiblePassword, visibleConfirm, phoneNumber, securityans;
     @FXML
     private Button next;
     @FXML
@@ -48,7 +50,7 @@ public class RegisterPanelController implements Initializable {
     @FXML
     private DatePicker birthDate;
     @FXML
-    private Label passwordWarning, gmail, usernameWarning, createYourAccount;
+    private Label passwordWarning, gmail, usernameWarning, createYourAccount, success;
     @FXML
     private FontIcon eye, eyeSlash;
     @FXML
@@ -57,6 +59,8 @@ public class RegisterPanelController implements Initializable {
     private ImageView image;
     @FXML
     private RadioButton male, female;
+    @FXML
+    private ComboBox<String> security;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -75,11 +79,11 @@ public class RegisterPanelController implements Initializable {
     }
 
     public void next(ActionEvent actionEvent) throws IOException {
-        nextSteps.setVisible(true);
         connectToServer();
         if (passwordChecker() && birthDateChecker() && emptyFieldChecker()) {
             if (password.getText().equals(confirm.getText()) || visiblePassword.getText().equals(visibleConfirm.getText())) {
                 out.writeObject(new Message(MessageType.AvailableUsername, username.getText(), "", ""));
+//                connection.sendRequest(new Message(MessageType.AvailableUsername, username.getText(), "", ""));
                 if (in.readBoolean()) {
                     TranslateTransition transition1 = new TranslateTransition(Duration.millis(1000), nextAnchor);
                     TranslateTransition transition2 = new TranslateTransition(Duration.millis(1000), nextSteps);
@@ -87,6 +91,9 @@ public class RegisterPanelController implements Initializable {
                     transition2.playFromStart();
                     transition1.setToX(-550);
                     transition1.playFromStart();
+                    security.getItems().add("Where was your mother born ?");
+                    security.getItems().add("What is the name of your childhood best friend ?");
+                    security.getItems().add("what is the name of your favorite soccer player ?");
                     disconnectFromServer();
                 } else {
                     Alert userNotFound = new Alert(Alert.AlertType.INFORMATION, "this username is already taken!");
@@ -106,10 +113,15 @@ public class RegisterPanelController implements Initializable {
         client = new Socket(IPSetter.getIP(), 8888);
         out = new ObjectOutputStream(client.getOutputStream());
         in = new ObjectInputStream(client.getInputStream());
-        System.out.println("connected");
+//        System.out.println("connected");
+//        User Controller = new User(null, null, "controller", null);
+//        connection = new Connection(Controller, false);
+//        out = connection.getOut();
+//        in = connection.getIn();
     }
 
     private void disconnectFromServer() throws IOException {
+//        connection.sendRequest(new Message(MessageType.Disconnect, "", "", ""));
         out.writeObject(new Message(MessageType.Disconnect, "", "", ""));
     }
 
@@ -195,7 +207,8 @@ public class RegisterPanelController implements Initializable {
 
     public void malePic(MouseEvent mouseEvent) {
         if (selectedFile == null) {
-            selectedFile = new File("/View/Resources/boy.png");
+//            selectedFile = new File("/View/Resources/boy.png");
+            selectedFile = new File("src/View/Resources/boy.png");
             Image boyDefaultImage = new Image("/View/Resources/boy.png");
             image.setImage(boyDefaultImage);
         }
@@ -203,7 +216,7 @@ public class RegisterPanelController implements Initializable {
 
     public void femalePic(MouseEvent mouseEvent) {
         if (selectedFile == null) {
-            selectedFile = new File("/View/Resources/girl.png");
+            selectedFile = new File("src/View/Resources/girl.png");
             Image girDefaultImage = new Image("/View/Resources/girl.png");
             image.setImage(girDefaultImage);
         }
@@ -211,11 +224,20 @@ public class RegisterPanelController implements Initializable {
 
     public void register(ActionEvent actionEvent) throws IOException {
         // we should initialize user here
+        connectToServer();
         User current = new User(firstname.getText(), lastname.getText(), username.getText(), password.getText());
         current.complete(selectedFile, phoneNumber.getText(), male.isSelected() ? Gender.Male : Gender.Female);
-        Connection newUser = new Connection(current);
-        newUser.initializeServices();
-        LogedInUser.addConnection(current.getUsername(), newUser);
+        current.setProImage(fileTOByteArray(selectedFile));
+        current.setSECURITY_QUESTION(security.getValue());
+        current.setSECURITY_QUESTION_ANSWER(securityans.getText());
+        Message request = new Message(MessageType.Register, username.getText(), "", "");
+        request.setUser(current);
+        out.writeObject(request);
+        success.setVisible(true);
+        disconnectFromServer();
+//        Connection newUser = new Connection(current, true);
+//        newUser.initializeServices();
+//        LoggedInUser.addConnection(current.getUsername(), newUser);
     }
 
     public void signInPanel(ActionEvent actionEvent) throws IOException {
@@ -225,6 +247,14 @@ public class RegisterPanelController implements Initializable {
     public void registerPanel(ActionEvent actionEvent) throws IOException {
         new PageLoader().Load("../View/Register - Panel.fxml");
 
+    }
+
+    private byte[] fileTOByteArray(File file) throws IOException {
+        byte[] bytesArray = new byte[(int) file.length()];
+        FileInputStream fis = new FileInputStream(file);
+        fis.read(bytesArray); //read file into bytes[]
+        fis.close();
+        return bytesArray;
     }
 
 }

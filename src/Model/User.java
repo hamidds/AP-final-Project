@@ -21,6 +21,35 @@ public class User implements Serializable {
     private String password;
     private String phoneNumber;
     private Gender gender;
+    private byte[] proImage;
+
+    public byte[] getProImage() {
+        return proImage;
+    }
+
+    public void setProImage(byte[] proImage) {
+        this.proImage = proImage;
+    }
+
+    private String SECURITY_QUESTION;
+
+    public String getSECURITY_QUESTION() {
+        return SECURITY_QUESTION;
+    }
+
+    public void setSECURITY_QUESTION(String SECURITY_QUESTION) {
+        this.SECURITY_QUESTION = SECURITY_QUESTION;
+    }
+
+    public String getSECURITY_QUESTION_ANSWER() {
+        return SECURITY_QUESTION_ANSWER;
+    }
+
+    public void setSECURITY_QUESTION_ANSWER(String SECURITY_QUESTION_ANSWER) {
+        this.SECURITY_QUESTION_ANSWER = SECURITY_QUESTION_ANSWER;
+    }
+
+    private String SECURITY_QUESTION_ANSWER;
 
     public void setPassword(String password) {
         this.password = password;
@@ -62,6 +91,15 @@ public class User implements Serializable {
     private List<Conversation> conversations = new ArrayList<>();
     private List<Conversation> inbox = new ArrayList<>();
     private List<Mail> sent = new ArrayList<>();
+    private List<User> blockedUsers = new ArrayList<>();
+
+    public List<User> getBlockedUsers() {
+        return blockedUsers;
+    }
+
+    public void block(User user) {
+        blockedUsers.add(user);
+    }
 
     public void addSent(Mail mail) {
         sent.add(mail);

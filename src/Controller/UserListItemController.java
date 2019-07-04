@@ -4,6 +4,7 @@ import Model.Messages.Conversation;
 import Model.Messages.Message;
 import Model.Messages.MessageType;
 import Model.PageLoader;
+import Model.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -13,6 +14,7 @@ import javafx.scene.layout.Pane;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
+import java.util.List;
 
 public class UserListItemController {
     private Conversation conversation;
@@ -33,7 +35,7 @@ public class UserListItemController {
     }
 
     public AnchorPane init() {
-        if (conversation.isInTrash())
+        if (conversation.isInTrash() || isBlocked(conversation.getSender()))
             return null;
         if (conversation.isBookMarked()) {
             bookMark.setVisible(true);
@@ -52,8 +54,8 @@ public class UserListItemController {
     public void remove() {
         conversation.setInTrash(true);
         Message CONVERSATION_DELETE = new Message(MessageType.ConversationDelete, conversation.getSubject(), "", "");
-        CONVERSATION_DELETE.setUser(LogedInUser.getLoggedInUser());
-        LogedInUser.getLoggedInUserConnection().sendRequest(CONVERSATION_DELETE);
+        CONVERSATION_DELETE.setUser(LoggedInUser.getLoggedInUser());
+        LoggedInUser.getLoggedInUserConnection().sendRequest(CONVERSATION_DELETE);
     }
 
     public void bookmark() {
@@ -61,8 +63,8 @@ public class UserListItemController {
         unBookMark.setVisible(true);
         conversation.setBookMarked(false);
         Message CONVERSATION_BOOKMARK = new Message(MessageType.ConversationBookmark, conversation.getSubject(), "", "");
-        CONVERSATION_BOOKMARK.setUser(LogedInUser.getLoggedInUser());
-        LogedInUser.getLoggedInUserConnection().sendRequest(CONVERSATION_BOOKMARK);
+        CONVERSATION_BOOKMARK.setUser(LoggedInUser.getLoggedInUser());
+        LoggedInUser.getLoggedInUserConnection().sendRequest(CONVERSATION_BOOKMARK);
     }
 
 
@@ -71,8 +73,8 @@ public class UserListItemController {
         unflag.setVisible(true);
         conversation.setRead(false);
         Message CONVERSATION_READ = new Message(MessageType.ConversationRead, conversation.getSubject(), "", "");
-        CONVERSATION_READ.setUser(LogedInUser.getLoggedInUser());
-        LogedInUser.getLoggedInUserConnection().sendRequest(CONVERSATION_READ);
+        CONVERSATION_READ.setUser(LoggedInUser.getLoggedInUser());
+        LoggedInUser.getLoggedInUserConnection().sendRequest(CONVERSATION_READ);
     }
 
 
@@ -81,8 +83,8 @@ public class UserListItemController {
         flag.setVisible(true);
         conversation.setRead(true);
         Message CONVERSATION_READ = new Message(MessageType.ConversationRead, conversation.getSubject(), "", "");
-        CONVERSATION_READ.setUser(LogedInUser.getLoggedInUser());
-        LogedInUser.getLoggedInUserConnection().sendRequest(CONVERSATION_READ);
+        CONVERSATION_READ.setUser(LoggedInUser.getLoggedInUser());
+        LoggedInUser.getLoggedInUserConnection().sendRequest(CONVERSATION_READ);
     }
 
     public void unBookMark() {
@@ -90,8 +92,8 @@ public class UserListItemController {
         bookMark.setVisible(true);
         conversation.setBookMarked(true);
         Message CONVERSATION_BOOKMARK = new Message(MessageType.ConversationBookmark, conversation.getSubject(), "", "");
-        CONVERSATION_BOOKMARK.setUser(LogedInUser.getLoggedInUser());
-        LogedInUser.getLoggedInUserConnection().sendRequest(CONVERSATION_BOOKMARK);
+        CONVERSATION_BOOKMARK.setUser(LoggedInUser.getLoggedInUser());
+        LoggedInUser.getLoggedInUserConnection().sendRequest(CONVERSATION_BOOKMARK);
     }
 
     public void mouseOn(MouseEvent mouseEvent) {
@@ -102,5 +104,16 @@ public class UserListItemController {
     public void mouseOff(MouseEvent mouseEvent) {
         icons.setVisible(false);
         dateTime.setVisible(true);
+    }
+
+    private boolean isBlocked(User user) {
+        List<User> blockedUsers = LoggedInUser.getLoggedInUser().getBlockedUsers();
+        if (blockedUsers.size() == 0)
+            return false;
+        for (User blockedUser : blockedUsers) {
+            if (user.equals(blockedUser))
+                return true;
+        }
+        return false;
     }
 }

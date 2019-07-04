@@ -7,6 +7,10 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
+/**
+ * we use this Class to set our Server's IP
+ * and then use it when needed
+ */
 public class IPSetter {
 
     private static String IP;

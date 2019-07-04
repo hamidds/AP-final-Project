@@ -35,12 +35,12 @@
                   <FontIcon iconLiteral="fa-edit" styleClass="icons" />
                </graphic>
             </Button>
-            <Button fx:id="exit" layoutY="349.0" mnemonicParsing="false" onAction="#Exit" prefHeight="54.0" prefWidth="330.0" styleClass="button1" text="Exit">
+            <Button fx:id="exit" layoutY="349.0" mnemonicParsing="false" onAction="#Exit" prefHeight="54.0" prefWidth="330.0" styleClass="button1" text="Set IP">
                <font>
                   <Font size="17.0" />
                </font>
                <graphic>
-                  <FontIcon iconLiteral="fa-window-close" styleClass="icons" />
+                  <FontIcon iconLiteral="fa-wrench" styleClass="icons" />
                </graphic>
             </Button>
          </children>
@@ -54,9 +54,14 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Label fx:id="createYourAccount1" layoutX="163.0" layoutY="23.0" text="Sign In">
+            <Label fx:id="createYourAccount1" layoutX="163.0" layoutY="23.0" text="Sign in">
                <font>
                   <Font size="20.0" />
+               </font>
+            </Label>
+            <Label fx:id="forgotPass" layoutX="31.0" layoutY="181.0" onMouseClicked="#newPass" prefHeight="20.0" prefWidth="115.0" text="Forgot Password?" textFill="#777777">
+               <font>
+                  <Font size="14.0" />
                </font>
             </Label>
          </children>

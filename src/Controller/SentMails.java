@@ -1,7 +1,5 @@
 package Controller;
 
-import Model.Main;
-import Model.Messages.Conversation;
 import Model.Messages.Mail;
 import Model.Messages.Message;
 import Model.Messages.MessageType;
@@ -43,7 +41,7 @@ public class SentMails implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loggedInUser = LogedInUser.getLoggedInUser();
+        loggedInUser = LoggedInUser.getLoggedInUser();
         mails = loggedInUser.getSent();
         mainPanelAvatar.setClip(new Circle(60, 60, 60));
         mainPanelAvatar.setImage(new Image(loggedInUser.getProfileImage().toURI().toString()));
@@ -79,8 +77,9 @@ public class SentMails implements Initializable {
         Message refreshMessage = new Message(MessageType.Refresh, "", "", "");
         refreshMessage.setUser(loggedInUser);
         out.writeObject(refreshMessage);
-        LogedInUser.setLoggedInUser((User) in.readObject());
-        loggedInUser = LogedInUser.getLoggedInUser();
+        Message refreshAnswer = (Message) in.readObject();
+        LoggedInUser.setLoggedInUser(refreshAnswer.getUser());
+        loggedInUser = LoggedInUser.getLoggedInUser();
         mails = loggedInUser.getSent();
         sentMails.setCellFactory(inbox1 -> new UserListItemMails());
         sentMails.setItems(FXCollections.observableArrayList(mails));

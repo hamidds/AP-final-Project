@@ -33,12 +33,12 @@
                   <FontIcon iconLiteral="fa-edit" styleClass="icons" />
                </graphic>
             </Button>
-            <Button fx:id="exit" layoutY="349.0" mnemonicParsing="false" onAction="#Exit" prefHeight="54.0" prefWidth="330.0" styleClass="button1" text="Exit">
+            <Button fx:id="exit" layoutY="349.0" mnemonicParsing="false" onAction="#Exit" prefHeight="54.0" prefWidth="330.0" styleClass="button1" text="Set IP">
                <font>
                   <Font size="17.0" />
                </font>
                <graphic>
-                  <FontIcon iconLiteral="fa-window-close" styleClass="icons" />
+                  <FontIcon iconLiteral="fa-wrench" styleClass="icons" />
                </graphic>
             </Button>
          </children>

@@ -1,10 +1,10 @@
 package Controller;
 
-import Model.Messages.Conversation;
 import Model.Messages.Mail;
 import Model.Messages.Message;
 import Model.Messages.MessageType;
 import Model.PageLoader;
+import Model.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -14,6 +14,7 @@ import javafx.scene.layout.Pane;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
+import java.util.List;
 
 public class UserListItemMailsController {
     private Mail mail;
@@ -34,7 +35,7 @@ public class UserListItemMailsController {
     }
 
     public AnchorPane init() {
-        if (mail.isInTrash())
+        if (mail.isInTrash() || isBlocked(mail.getSenderUser()))
             return null;
         if (mail.isBookMarked()) {
             bookMark.setVisible(true);
@@ -60,8 +61,8 @@ public class UserListItemMailsController {
         mail.setBookMarked(false);
         Message MAIL_BOOKMARK = new Message(mail, MessageType.MailBookmark);
         MAIL_BOOKMARK.setReceiver(mail.getSubject());
-        MAIL_BOOKMARK.setUser(LogedInUser.getLoggedInUser());
-        LogedInUser.getLoggedInUserConnection().sendRequest(MAIL_BOOKMARK);
+        MAIL_BOOKMARK.setUser(LoggedInUser.getLoggedInUser());
+        LoggedInUser.getLoggedInUserConnection().sendRequest(MAIL_BOOKMARK);
     }
 
 
@@ -84,8 +85,8 @@ public class UserListItemMailsController {
         mail.setBookMarked(true);
         Message MAIL_BOOKMARK = new Message(mail, MessageType.MailBookmark);
         MAIL_BOOKMARK.setReceiver(mail.getSubject());
-        MAIL_BOOKMARK.setUser(LogedInUser.getLoggedInUser());
-        LogedInUser.getLoggedInUserConnection().sendRequest(MAIL_BOOKMARK);
+        MAIL_BOOKMARK.setUser(LoggedInUser.getLoggedInUser());
+        LoggedInUser.getLoggedInUserConnection().sendRequest(MAIL_BOOKMARK);
     }
 
     public void mouseOn(MouseEvent mouseEvent) {
@@ -96,5 +97,16 @@ public class UserListItemMailsController {
     public void mouseOff(MouseEvent mouseEvent) {
         icons.setVisible(false);
         dateTime.setVisible(true);
+    }
+
+    private boolean isBlocked(User user) {
+        List<User> blockedUsers = LoggedInUser.getLoggedInUser().getBlockedUsers();
+        if (blockedUsers.size() == 0)
+            return false;
+        for (User blockedUser : blockedUsers) {
+            if (user.equals(blockedUser))
+                return true;
+        }
+        return false;
     }
 }

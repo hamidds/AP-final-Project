@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -35,6 +36,8 @@ public class SignInPanel {
         out = new ObjectOutputStream(client.getOutputStream());
         in = new ObjectInputStream(client.getInputStream());
         System.out.println("connected");
+
+
     }
 
     private void disconnectFromServer() throws IOException {
@@ -60,9 +63,13 @@ public class SignInPanel {
         Message message1 = (Message) in.readObject();
         if (message1.isOkLogin()) {
             System.out.println("hi");
-            LogedInUser.setLoggedInUser(message1.getUser());
+            LoggedInUser.setLoggedInUser(message1.getUser());
             new PageLoader().Load("../View/Main - Panel.fxml");
             System.out.println("login successful");
         }
+    }
+
+    public void newPass(MouseEvent mouseEvent) throws IOException {
+        new PageLoader().Load("../View/ForgotPassword.fxml");
     }
 }

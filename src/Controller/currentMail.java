@@ -3,6 +3,10 @@ package Controller;
 import Model.Messages.Conversation;
 import Model.Messages.Mail;
 
+/**
+ * this class is used when we want to
+ * open an Mail and see its details
+ */
 public class currentMail {
     private static Mail mail;
     private static Conversation conversation;
