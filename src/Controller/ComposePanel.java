@@ -76,6 +76,7 @@ public class ComposePanel implements Initializable {
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {
+        LoggedInUser.getLoggedInUserConnection().sendRequest(new Message(MessageType.Disconnect, null, null, null));
         new PageLoader().Load("../View/SignIn - Panel.fxml");
     }
 

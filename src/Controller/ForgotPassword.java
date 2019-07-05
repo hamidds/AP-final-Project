@@ -7,6 +7,7 @@ import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -19,6 +20,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ForgotPassword implements Initializable {
 
@@ -79,22 +82,36 @@ public class ForgotPassword implements Initializable {
         if (in.readBoolean()) {
             first.setVisible(false);
 //            TranslateTransition transition1 = new TranslateTransition(Duration.millis(1000), first);
+//            transition1.setToX(-550);
+//            transition1.playFromStart();
             TranslateTransition transition2 = new TranslateTransition(Duration.millis(1000), second);
             transition2.setToX(-500);
             transition2.playFromStart();
-//            transition1.setToX(-550);
-//            transition1.playFromStart();
 
         }
         disconnectFromServer();
     }
 
     public void changePass(ActionEvent actionEvent) throws IOException {
-        connectToServer();
-        if (nC.getText().equals(nC.getText())) {
-            Message changePass = new Message(MessageType.ForgotPass, nP.getText(), "", user.getText());
-            out.writeObject(changePass);
+        if (passwordChecker()) {
+            connectToServer();
+            if (nP.getText().equals(nC.getText())) {
+                Message changePass = new Message(MessageType.ForgotPass, nP.getText(), "", user.getText());
+                out.writeObject(changePass);
+            }
+            disconnectFromServer();
+            Alert changedPass = new Alert(Alert.AlertType.INFORMATION, "Your Password has been changed!");
+            changedPass.showAndWait();
+        } else {
+            Alert invalidPass = new Alert(Alert.AlertType.INFORMATION, "Please use 8 or more characters with a mix of letters, numbers & symbols");
+            invalidPass.showAndWait();
         }
-        disconnectFromServer();
+    }
+
+    private boolean passwordChecker() {
+        String PASSWORD_REGEX = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,20})";
+        Pattern pattern = Pattern.compile(PASSWORD_REGEX);
+        Matcher matcher = pattern.matcher(nP.getText());
+        return matcher.matches();
     }
 }

@@ -1,6 +1,7 @@
 package Model.Connection;
 
 import Controller.LoggedInUser;
+import Model.Messages.Mail;
 import Model.Messages.Message;
 import Model.User;
 
@@ -27,6 +28,8 @@ public class ClientMessageHandler {
                 break;
             case Error:
                 respond = message.getReceiver() + " doesn't exist";
+//                Mail Error = new Mail()
+//                LoggedInUser.getLoggedInUser().addConversation();
                 break;
         }
         return respond;

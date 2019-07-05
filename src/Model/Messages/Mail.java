@@ -62,6 +62,15 @@ public class Mail implements Serializable {
     private boolean read;
     private boolean inTrash;
     private boolean fileIsDownloaded;
+    private boolean fromGoogleDelivery;
+
+    public boolean isFromGoogleDelivery() {
+        return fromGoogleDelivery;
+    }
+
+    public void setFromGoogleDelivery(boolean fromGoogleDelivery) {
+        this.fromGoogleDelivery = fromGoogleDelivery;
+    }
 
     public boolean isFileIsDownloaded() {
         return fileIsDownloaded;

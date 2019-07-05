@@ -20,7 +20,7 @@
          <children>
             <TextField fx:id="firstname" layoutX="2.0" layoutY="46.0" prefHeight="34.0" prefWidth="185.0" promptText="First name" styleClass="text-field" stylesheets="@Css/Style.css" />
             <TextField fx:id="lastname" layoutX="202.0" layoutY="46.0" prefHeight="34.0" prefWidth="185.0" promptText="Last name" stylesheets="@Css/Style.css" />
-            <TextField fx:id="username" layoutY="106.0" prefHeight="34.0" prefWidth="386.0" promptText="Username" stylesheets="@Css/Style.css" />
+            <TextField fx:id="username" layoutY="106.0" onMouseEntered="#suggest" prefHeight="34.0" prefWidth="386.0" promptText="Username" stylesheets="@Css/Style.css" />
             <Label fx:id="passwordWarning" layoutX="2.0" layoutY="213.0" prefHeight="18.0" prefWidth="361.0" text="Use 8 or more characters with a mix of letters, numbers &amp; symbols" textFill="#616161" />
             <Label fx:id="usernameWarning" layoutX="3.0" layoutY="144.0" prefHeight="18.0" prefWidth="361.0" text="You can use letters &amp; numbers " textFill="#616161" />
             <Label fx:id="createYourAccount" text="Create your Account">

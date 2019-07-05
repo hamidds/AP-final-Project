@@ -71,7 +71,7 @@
       <AnchorPane fx:id="opend" layoutX="348.0" layoutY="49.0" prefHeight="512.0" prefWidth="568.0" stylesheets="@Css/Style.css">
          <children>
             <ImageView fx:id="profileImage" fitHeight="78.0" fitWidth="100.0" layoutX="14.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="name" layoutX="130.0" layoutY="5.0" prefHeight="38.0" prefWidth="287.0" style="-fx-background-color: EFEFEF;" text="Name" textFill="#828282">
+            <Label fx:id="name" layoutX="130.0" layoutY="5.0" prefHeight="38.0" prefWidth="345.0" style="-fx-background-color: EFEFEF;" text="Name" textFill="#828282">
                <font>
                   <Font size="14.0" />
                </font>
@@ -114,7 +114,7 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <Label fx:id="mailDate" layoutX="130.0" layoutY="43.0" prefHeight="38.0" prefWidth="287.0" style="-fx-background-color: EFEFEF;" text="Date" />
+            <Label fx:id="mailDate" layoutX="130.0" layoutY="43.0" prefHeight="38.0" prefWidth="346.0" style="-fx-background-color: EFEFEF;" text="Date" />
             <AnchorPane fx:id="rePane" layoutX="38.0" layoutY="348.0" prefHeight="87.0" prefWidth="414.0" visible="false">
                <children>
                   <Button layoutX="346.0" layoutY="16.0" mnemonicParsing="false" onAction="#replySend" prefHeight="51.0" prefWidth="67.0" styleClass="button3" text="Send" />
@@ -124,7 +124,7 @@
             <AnchorPane fx:id="foPane" layoutX="34.0" layoutY="442.0" prefHeight="66.0" prefWidth="414.0" visible="false">
                <children>
                   <Button layoutX="332.0" layoutY="7.0" mnemonicParsing="false" onAction="#forwardSend" prefHeight="43.0" prefWidth="67.0" styleClass="button3" text="Forward" />
-                  <TextField fx:id="foText" layoutX="9.0" layoutY="7.0" prefHeight="46.0" prefWidth="252.0" />
+                  <TextField fx:id="foText" layoutX="9.0" layoutY="7.0" prefHeight="46.0" prefWidth="252.0" promptText="To :" />
                </children>
             </AnchorPane>
             <TextField fx:id="text" alignment="TOP_LEFT" disable="true" layoutX="38.0" layoutY="90.0" prefHeight="246.0" prefWidth="442.0" />

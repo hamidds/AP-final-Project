@@ -69,11 +69,9 @@ public class MainPanelController implements Initializable {
 //        Conversation c2 = new Conversation(mail1, hamid, reza);
 //        Conversation c3 = new Conversation(mail2, Ali, reza);
 //        conversations = new ArrayList<>(Arrays.asList(c1, c2, c3));
-
-
         loggedInUser = LoggedInUser.getLoggedInUser();
         conversations = loggedInUser.getConversations();
-        mainPanelAvatar.setClip(new Circle(60, 60, 60));
+        mainPanelAvatar.setClip(new Circle(80, 72, 70));
         mainPanelAvatar.setImage(LoggedInUser.getLoggedInUserImage());
 
 //        mainPanelAvatar.setImage(new Image(loggedInUser.getProfileImage().toURI().toString()));
@@ -102,6 +100,7 @@ public class MainPanelController implements Initializable {
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {
+        LoggedInUser.getLoggedInUserConnection().sendRequest(new Message(MessageType.Disconnect, null, null, null));
         new PageLoader().Load("../View/SignIn - Panel.fxml");
     }
 

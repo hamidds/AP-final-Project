@@ -35,8 +35,10 @@ public class UserListItemController {
     }
 
     public AnchorPane init() {
-        if (conversation.isInTrash() || isBlocked(conversation.getSender()))
+        if (conversation.isInTrash() || isBlocked(conversation.getSender())) {
+            System.out.println(isBlocked(conversation.getSender()));
             return null;
+        }
         if (conversation.isBookMarked()) {
             bookMark.setVisible(true);
             unBookMark.setVisible(false);

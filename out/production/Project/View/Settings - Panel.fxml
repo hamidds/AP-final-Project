@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -17,11 +16,6 @@
    <children>
       <AnchorPane prefHeight="575.0" prefWidth="330.0" styleClass="scroll-pane" stylesheets="@Css/Style.css">
          <children>
-            <ImageView fitHeight="188.0" fitWidth="292.0" layoutX="22.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Resources/gmail-logo.png" />
-               </image>
-            </ImageView>
             <VBox layoutX="1.0" layoutY="228.0" prefHeight="313.0" prefWidth="330.0">
                <children>
                   <Button fx:id="compose" mnemonicParsing="false" onAction="#compose" prefHeight="54.0" prefWidth="330.0" styleClass="button1" text="Compose">
@@ -66,6 +60,7 @@
                   </Button>
                </children>
             </VBox>
+            <ImageView fx:id="mainPanelAvatar" fitHeight="154.0" fitWidth="192.0" layoutX="70.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
       <Button fx:id="inboxTitle" layoutX="334.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="596.0" styleClass="titles" text="Settings">
@@ -108,5 +103,11 @@
       <PasswordField fx:id="pe" layoutX="519.0" layoutY="354.0" prefHeight="32.0" prefWidth="130.0" promptText="New Password" />
       <PasswordField fx:id="ce" layoutX="658.0" layoutY="354.0" prefHeight="32.0" prefWidth="130.0" promptText="Confirm" />
       <FontIcon fx:id="passCheck" iconColor="#494747" iconLiteral="fa-check-circle" iconSize="20" layoutX="797.0" layoutY="377.0" onMouseClicked="#passChange" />
+      <FontIcon iconLiteral="fa-list-ul" iconSize="25" layoutX="519.0" layoutY="436.0" onMouseClicked="#showBlocked" />
+      <Label layoutX="550.0" layoutY="413.0" text="Blocked Users">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -1,10 +1,12 @@
 package Controller;
 
+import Model.Messages.Conversation;
 import Model.Messages.Mail;
 import Model.Messages.Message;
 import Model.Messages.MessageType;
 import Model.PageLoader;
 import Model.User;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -43,8 +46,9 @@ public class SentMails implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loggedInUser = LoggedInUser.getLoggedInUser();
         mails = loggedInUser.getSent();
-        mainPanelAvatar.setClip(new Circle(60, 60, 60));
-        mainPanelAvatar.setImage(new Image(loggedInUser.getProfileImage().toURI().toString()));
+        mainPanelAvatar.setClip(new Circle(80, 72, 70));
+//        mainPanelAvatar.setImage(new Image(loggedInUser.getProfileImage().toURI().toString()));
+        mainPanelAvatar.setImage(LoggedInUser.getLoggedInUserImage());
         sentMails.setCellFactory(inbox1 -> new UserListItemMails());
         sentMails.setItems(FXCollections.observableArrayList(mails));
     }
@@ -97,11 +101,17 @@ public class SentMails implements Initializable {
         sentMails.setItems(FXCollections.observableArrayList(searched));
     }
 
-    public void open(ActionEvent actionEvent) {
+    public void open(ActionEvent actionEvent) throws IOException {
+        if (sentMails.getSelectionModel().isEmpty())
+            return;
+            Mail mail = sentMails.getSelectionModel().getSelectedItem();
+            currentMail.setMail(mail);
+            new PageLoader().Load("../View/Mail.fxml");
 
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {
+        LoggedInUser.getLoggedInUserConnection().sendRequest(new Message(MessageType.Disconnect, null, null, null));
         new PageLoader().Load("../View/SignIn - Panel.fxml");
     }
 

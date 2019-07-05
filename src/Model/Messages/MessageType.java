@@ -24,4 +24,7 @@ public enum MessageType {
     MailRead,
     ForgotPass,
     CheckSecurityQuestion,
+    Downloaded,
+    Unspam,
+    SaveUsers,
 }

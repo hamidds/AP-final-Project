@@ -10,7 +10,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -51,10 +50,12 @@ public class MailController implements Initializable {
         text.setText(OpenedMail.getText());
         mailDate.setText(OpenedMail.getTimeString());
         bytes = currentMail.getMail().getAttached();
-        if (bytes == null)
+        if (bytes == null || OpenedMail.isFileIsDownloaded())
             saveAttached.setVisible(false);
         mainPanelAvatar.setClip(new Circle(60, 60, 60));
         mainPanelAvatar.setImage(LoggedInUser.getLoggedInUserImage());
+        profileImage.setClip(new Circle(50, 33, 40));
+        profileImage.setImage(currentMail.getSenderImage());
     }
 
     public void compose(ActionEvent actionEvent) throws IOException {
@@ -74,11 +75,12 @@ public class MailController implements Initializable {
     }
 
     public void logout(ActionEvent actionEvent) throws IOException {
+        LoggedInUser.getLoggedInUserConnection().sendRequest(new Message(MessageType.Disconnect, null, null, null));
         new PageLoader().Load("../View/SignIn - Panel.fxml");
     }
 
     public void spam(ActionEvent actionEvent) {
-        Message block = new Message(MessageType.Spam, LoggedInUser.getLoggedInUser().getUsername(), OpenedMail.getReceiver(), "");
+        Message block = new Message(MessageType.Spam, LoggedInUser.getLoggedInUser().getUsername(), OpenedMail.getSender(), "");
         LoggedInUser.getLoggedInUserConnection().sendRequest(block);
     }
 
@@ -132,9 +134,12 @@ public class MailController implements Initializable {
 
     public void SaveFile(MouseEvent mouseEvent) throws IOException {
         FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter txt = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        FileChooser.ExtensionFilter pdf = new FileChooser.ExtensionFilter("PDF Documentations (*.pdf)", "*.pdf");
+        FileChooser.ExtensionFilter png = new FileChooser.ExtensionFilter("PNG (*.png)", "*.png");
+        FileChooser.ExtensionFilter jpg = new FileChooser.ExtensionFilter("JPEG (*.jpg)", "*.jpg");
         //Show save file dialog
-        FileChooser.ExtensionFilter a = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-        fileChooser.getExtensionFilters().add(a);
+        fileChooser.getExtensionFilters().addAll(txt, pdf, jpg, png);
         File file = fileChooser.showSaveDialog(null);
         if (file != null) {
             saveToSystem(this.bytes, file);
@@ -142,6 +147,11 @@ public class MailController implements Initializable {
     }
 
     private void saveToSystem(byte[] bytes, File file) throws IOException {
+        OpenedMail.setFileIsDownloaded(true);
+        Message downloadMessage = new Message(OpenedMail, MessageType.Downloaded);
+        downloadMessage.setUser(LoggedInUser.getLoggedInUser());
+        downloadMessage.setReceiver(currentMail.getConversation().getSubject());
+        LoggedInUser.getLoggedInUserConnection().sendRequest(downloadMessage);
         // Initialize a pointer
         // in file using OutputStream
         OutputStream os = new FileOutputStream(file);

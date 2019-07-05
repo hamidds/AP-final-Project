@@ -23,10 +23,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import java.io.*;
 import java.net.Socket;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -96,8 +93,8 @@ public class RegisterPanelController implements Initializable {
                     security.getItems().add("what is the name of your favorite soccer player ?");
                     disconnectFromServer();
                 } else {
-                    Alert userNotFound = new Alert(Alert.AlertType.INFORMATION, "this username is already taken!");
-                    userNotFound.showAndWait();
+                    Alert alreadyTaken = new Alert(Alert.AlertType.INFORMATION, "this username is already taken!");
+                    alreadyTaken.showAndWait();
                 }
             } else {
                 passwordWarning.setText("Those passwords didn't match. Try again.");
@@ -113,15 +110,9 @@ public class RegisterPanelController implements Initializable {
         client = new Socket(IPSetter.getIP(), 8888);
         out = new ObjectOutputStream(client.getOutputStream());
         in = new ObjectInputStream(client.getInputStream());
-//        System.out.println("connected");
-//        User Controller = new User(null, null, "controller", null);
-//        connection = new Connection(Controller, false);
-//        out = connection.getOut();
-//        in = connection.getIn();
     }
 
     private void disconnectFromServer() throws IOException {
-//        connection.sendRequest(new Message(MessageType.Disconnect, "", "", ""));
         out.writeObject(new Message(MessageType.Disconnect, "", "", ""));
     }
 
@@ -257,6 +248,32 @@ public class RegisterPanelController implements Initializable {
         return bytesArray;
     }
 
+    /**
+     * suggests an proper username for the user
+     *
+     * @param mouseEvent happens when the mouse is on it
+     */
+    public void suggest(MouseEvent mouseEvent) {
+        if (!firstname.getText().isEmpty() && !lastname.getText().isEmpty()) {
+            String randFirst;
+            String randLast;
+            Random rand = new Random();
+            // Generate random integer in range 0 to 999
+            int randomInt = rand.nextInt(1000);
+            //create random string based on user firstName and lastName
+            if (firstname.getText().length() > 1 && lastname.getText().length() > 1) {
+                randFirst = firstname.getText().substring(0, rand.nextInt(firstname.getText().length() - 1) + 1);
+                randLast = lastname.getText().substring(0, rand.nextInt(lastname.getText().length() - 1) + 1);
+            } else {
+                randFirst = firstname.getText();
+                randLast = lastname.getText();
+            }
+            // creates the final suggestion
+            String suggestion = randFirst + randLast + randomInt;
+            if (username.getText().isEmpty())
+                username.setText(suggestion);
+        }
+    }
 }
 
 
