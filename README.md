@@ -8,7 +8,7 @@ Registration is easy with just some limitaions for password which should be at l
 Login Panel is just for loging into the system , it also has an option for those who forget thier passwords.
 
 in the Main Panel , you can sending emails with files attached(with size limitaiotn), 
-chating with each other, blocking each other.
+chating with each other, blocking each other. You can also forward messages and mark them as important messages.
 
 in Settings, you can change their passwords and their profile pictures.
 
